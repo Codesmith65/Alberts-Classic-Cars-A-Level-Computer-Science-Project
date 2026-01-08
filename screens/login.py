@@ -9,8 +9,8 @@ class Login(Generic):
 
 		self.root.title("Albert's Classic Car - Login")
 
-		self.leftFrame = tk.Frame()
-		self.rightFrame = tk.Frame()
+		self.leftFrame = tk.Frame(self.root)
+		self.rightFrame = tk.Frame(self.root)
 		self.loginFrame = tk.Frame(self.rightFrame)
 
 		self.loginTitleLabel = tk.Label(self.loginFrame)

@@ -1,5 +1,5 @@
-from screens.home import Home
+from screens.booking import Booking
 
-testWindow = Home()
+testWindow = Booking()
 
 testWindow.mainLoop()

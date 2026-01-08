@@ -13,20 +13,24 @@ class Login(Generic):
 		self.rightFrame = tk.Frame()
 		self.loginFrame = tk.Frame(self.rightFrame)
 
-		self.rightFrame.pack()
-		self.loginFrame.pack()
-
-		self.loginText = ttk.Label(self.loginFrame)
+		self.loginTitleLabel = tk.Label(self.loginFrame)
 		self.usernameEntry = tk.Entry(self.loginFrame)
 		self.passwordEntry = tk.Entry(self.loginFrame)
-		self.forgotPasswordLabel = ttk.Label(self.loginFrame)
+		self.loginButton = tk.Button(self.loginFrame)
+		self.forgotPasswordLabel = tk.Label(self.loginFrame)
 
-		self.loginText["text"] = "Login"
-		self.loginText["font"] = ("Helvetica", 40)
+
+		self.loginTitleLabel["text"] = "Login"
+		self.loginTitleLabel["font"] = ("Helvetica", 40)
+		self.loginButton["text"] = "Login"
 		self.forgotPasswordLabel["text"] = "Forgot password? Contact admin."
 
 
-		self.loginText.pack()
+		self.rightFrame.pack()
+		self.loginFrame.pack()
+
+		self.loginTitleLabel.pack()
 		self.usernameEntry.pack()
 		self.passwordEntry.pack()
+		self.loginButton.pack()
 		self.forgotPasswordLabel.pack()

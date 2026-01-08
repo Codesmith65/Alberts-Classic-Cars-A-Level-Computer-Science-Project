@@ -1,5 +1,5 @@
-from screens.login import Login
+from screens.home import Home
 
-login = Login()
+testWindow = Home()
 
-login.mainLoop()
+testWindow.mainLoop()

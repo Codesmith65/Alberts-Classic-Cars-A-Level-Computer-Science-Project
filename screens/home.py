@@ -34,6 +34,7 @@ class Home(Generic):
 		self.titleLable["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
 
+
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 		self.navigationButtonsFrame.pack()

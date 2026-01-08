@@ -1,0 +1,48 @@
+import tkinter as tk
+from tkinter import ttk
+from .generic import Generic
+
+
+class Home(Generic):
+	def __init__(self) -> None:
+		super().__init__()
+
+		self.root.title("Albert's Classic Car - Home")
+
+		self.topBarFrame = tk.Frame(self.root)
+		self.mainContectFrame = tk.Frame(self.root)
+		self.navigationButtonsFrame = tk.Frame(self.mainContectFrame)
+
+		self.companyLogo = tk.PhotoImage
+		self.companyLogoLabel = tk.Label(self.topBarFrame)
+		self.titleLable = tk.Label(self.topBarFrame)
+		self.logOutButton = tk.Button(self.topBarFrame)
+
+		self.searchButton = tk.Button(self.navigationButtonsFrame)
+		self.bookingButton = tk.Button(self.navigationButtonsFrame)
+		self.taskButton = tk.Button(self.navigationButtonsFrame)
+		#TODO check if account should see this
+		self.accountsButton = tk.Button(self.navigationButtonsFrame)
+
+
+		self.searchButton["text"] = "Search"
+		self.bookingButton["text"] = "Create Booking"
+		self.taskButton["text"] = "Tasks"
+
+		self.companyLogoLabel["text"] = "logo"
+		self.titleLable["text"] ="Home"
+		self.titleLable["font"] = ("Helvetica", 40)
+		self.logOutButton["text"] = "Logout"
+
+		self.topBarFrame.pack()
+		self.mainContectFrame.pack()
+		self.navigationButtonsFrame.pack()
+
+		self.searchButton.grid(row=0, column=0)
+		self.bookingButton.grid(row=0, column=1)
+		self.taskButton.grid(row=0, column=2)
+		self.accountsButton.grid(row=1, column=1)
+
+		self.companyLogoLabel.pack()
+		self.titleLable.pack()
+		self.logOutButton.pack()

@@ -9,6 +9,14 @@ from uuid import UUID
 class Application:
     def __init__(self) -> None:
         self.logedInUser: UUID|None = None
+        self.currentScreen: GenericScreen|None = None
     
     def setLoggedInUser(self, userID: UUID|None) -> None:
         self.logedInUser = userID
+
+    def switchForm(self, newForm: GenericScreen) -> None:
+        if self.currentScreen != None:
+            self.currentScreen.root.destroy()
+        
+        self.currentScreen: GenericScreen = newForm(self)
+        self.currentScreen.mainLoop()

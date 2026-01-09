@@ -1,4 +1,9 @@
-from screens.account import Account
+from .application import Application
+
+from screens.login import Login
+
+
+application = Application()
 
 testWindow = Account()
 

@@ -1,5 +1,5 @@
-from screens.task import Task
+from screens.account import Account
 
-testWindow = Task()
+testWindow = Account()
 
 testWindow.mainLoop()

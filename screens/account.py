@@ -45,7 +45,7 @@ class Account(Generic):
 		self.titleLabel.pack()
 		self.logOutButton.pack()
 		
-		self.newAccountLabelFrame.grid(row=0, column=1)
+		self.newAccountLabelFrame.grid(row=0, column=0)
 		self.newAccountUsernameEntry.pack()
 		self.newAccountCreateButton.pack()
 		

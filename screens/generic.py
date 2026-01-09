@@ -1,8 +1,10 @@
 import tkinter as tk
+from ..application import Application
 
 
 class Generic:
-	def __init__(self) -> None:
+	def __init__(self, application: Application) -> None:
+		self.application = application
 		self.root = tk.Tk()
 		
 		self.root.geometry("1000x600")

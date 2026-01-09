@@ -1,11 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 from .generic import Generic
+from ..application import Application
 
 
 class Task(Generic):
-	def __init__(self) -> None:
-		super().__init__()
+	def __init__(self, application: Application) -> None:
+		super().__init__(application)
 
 		self.root.title("Albert's Classic Car - Task")
 

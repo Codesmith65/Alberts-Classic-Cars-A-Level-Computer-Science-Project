@@ -4,10 +4,11 @@ from screens.login import Login
 
 
 application = Application()
+application.switchForm(Login)
 
-testWindow = Account()
+#testWindow = Login(application)
 
-testWindow.mainLoop()
+#testWindow.mainLoop()
 
 from dataTypes.user import User
 import pickle

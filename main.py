@@ -1,5 +1,5 @@
-from screens.booking import Booking
+from screens.invoice import Invoice
 
-testWindow = Booking()
+testWindow = Invoice()
 
 testWindow.mainLoop()

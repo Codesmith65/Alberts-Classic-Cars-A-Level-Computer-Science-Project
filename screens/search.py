@@ -1,4 +1,3 @@
-from sys import setdlopenflags
 import tkinter as tk
 from tkinter import ttk
 from .generic import Generic

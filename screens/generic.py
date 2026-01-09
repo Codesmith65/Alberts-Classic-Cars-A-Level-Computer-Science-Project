@@ -1,5 +1,5 @@
 import tkinter as tk
-from ..application import Application
+from application import Application
 
 
 class Generic:

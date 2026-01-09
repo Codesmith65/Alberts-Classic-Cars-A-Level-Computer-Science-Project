@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
-from .generic import Generic
+from .generic import GenericScreen
 from ..application import Application
 
 
-class Booking(Generic):
+class Booking(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 

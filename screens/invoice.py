@@ -1,11 +1,11 @@
 from re import S
 import tkinter as tk
 from tkinter import ttk
-from .generic import Generic
+from .generic import GenericScreen
 from ..application import Application
 
 
-class Invoice(Generic):
+class Invoice(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 

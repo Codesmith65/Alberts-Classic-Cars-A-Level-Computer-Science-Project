@@ -2,7 +2,7 @@ import tkinter as tk
 from application import Application
 
 
-class Generic:
+class GenericScreen:
 	def __init__(self, application: Application) -> None:
 		self.application = application
 		self.root = tk.Tk()

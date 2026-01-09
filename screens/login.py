@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-from .generic import Generic
+from .generic import GenericScreen
 import pickle
 from application import Application
 from dataTypes.user import User
 
 
-class Login(Generic):
+class Login(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 

@@ -4,20 +4,20 @@ from .generic import Generic
 
 
 class Login(Generic):
-	def __init__(self) -> None:
+	def __init__(self, application: Application) -> None:
 		super().__init__()
 
 		self.root.title("Albert's Classic Car - Login")
 
-		self.leftFrame = tk.Frame(self.root)
-		self.rightFrame = tk.Frame(self.root)
-		self.loginFrame = tk.Frame(self.rightFrame)
+		self.leftFrame: tk.Frame = tk.Frame(self.root)
+		self.rightFrame: tk.Frame = tk.Frame(self.root)
+		self.loginFrame: tk.Frame = tk.Frame(self.rightFrame)
 
-		self.loginTitleLabel = tk.Label(self.loginFrame)
-		self.usernameEntry = tk.Entry(self.loginFrame)
-		self.passwordEntry = tk.Entry(self.loginFrame)
-		self.loginButton = tk.Button(self.loginFrame)
-		self.forgotPasswordLabel = tk.Label(self.loginFrame)
+		self.loginTitleLabel: tk.Label = tk.Label(self.loginFrame)
+		self.usernameEntry: tk.Entry = tk.Entry(self.loginFrame)
+		self.passwordEntry: tk.Entry = tk.Entry(self.loginFrame)
+		self.loginButton: tk.Button = tk.Button(self.loginFrame)
+		self.forgotPasswordLabel: tk.Label = tk.Label(self.loginFrame)
 
 
 		self.loginTitleLabel["text"] = "Login"

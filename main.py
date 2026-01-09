@@ -1,5 +1,5 @@
-from screens.invoice import Invoice
+from screens.search import Search
 
-testWindow = Invoice()
+testWindow = Search()
 
 testWindow.mainLoop()

@@ -25,6 +25,8 @@ class Login(Generic):
 		self.loginButton["text"] = "Login"
 		self.forgotPasswordLabel["text"] = "Forgot password? Contact admin."
 
+		self.loginButton["command"] = self.login
+
 
 		self.rightFrame.pack()
 		self.loginFrame.pack()

@@ -1,5 +1,5 @@
-from screens.search import Search
+from screens.task import Task
 
-testWindow = Search()
+testWindow = Task()
 
 testWindow.mainLoop()

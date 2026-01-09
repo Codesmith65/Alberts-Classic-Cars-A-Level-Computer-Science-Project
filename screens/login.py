@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from .generic import GenericScreen
+from .home import Home
 import pickle
 from application import Application
 from dataTypes.user import User
@@ -52,4 +53,5 @@ class Login(GenericScreen):
 					continue
 				
 				self.application.setLoggedInUser(user.userID)
+				self.application.switchForm(Home)
 				return

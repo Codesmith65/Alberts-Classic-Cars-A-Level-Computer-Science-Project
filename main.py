@@ -1,10 +1,11 @@
+import screens
 from application import Application
 
-from screens.login import Login
+
 
 
 application = Application()
-application.switchForm(Login)
+application.switchForm(screens.Login)
 
 
 while application.running:

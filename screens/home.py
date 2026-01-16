@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import NO, ttk
 from .generic import GenericScreen
 from application import Application
 import screens
@@ -36,6 +36,10 @@ class Home(GenericScreen):
 		self.logOutButton["text"] = "Logout"
 		
 		self.logOutButton["command"] = self.logout
+		self.searchButton["command"] = self.openSearch
+		self.bookingButton["command"] = self.openBooking
+		self.taskButton["command"] = self.openTasks
+		self.accountsButton["command"] = self.openAccounts
 
 
 		self.topBarFrame.pack()
@@ -52,6 +56,17 @@ class Home(GenericScreen):
 		self.logOutButton.pack()
 	
 	def logout(self) -> None:
-		
 		self.application.setLoggedInUser(None)
 		self.application.switchForm(screens.Login)
+	
+	def openSearch(self) -> None:
+		self.application.switchForm(screens.Search)
+		
+	def openBooking(self) -> None:
+		self.application.switchForm(screens.Booking)
+		
+	def openTasks(self) -> None:
+		self.application.switchForm(screens.Task)
+		
+	def openAccounts(self) -> None:
+		self.application.switchForm(screens.Account)

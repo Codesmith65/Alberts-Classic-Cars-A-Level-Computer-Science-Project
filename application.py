@@ -20,4 +20,10 @@ class Application:
         if self.currentScreen != None:
             self.currentScreen.root.destroy()
         
-        self.currentScreen = newForm(self)
+        self.currentScreen: GenericScreen = newForm(self)
+        
+        self.currentScreen.root.protocol("WM_DELETE_WINDOW", self.closeWindow)
+    
+    def closeWindow(self):
+        self.running = False
+        self.currentScreen.root.destroy()

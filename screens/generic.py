@@ -1,10 +1,11 @@
-import tkinter as tk
 from application import Application
+
+import tkinter as tk
 
 
 class GenericScreen:
 	def __init__(self, application: Application) -> None:
-		self.application = application
+		self.application: Application = application
 		self.root = tk.Tk()
 		
 		self.root.geometry("1000x600")

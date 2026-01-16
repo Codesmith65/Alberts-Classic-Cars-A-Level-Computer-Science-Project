@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from .generic import GenericScreen
-from ..application import Application
+from application import Application
 
 
 class Task(GenericScreen):

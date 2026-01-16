@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from .generic import GenericScreen
 from application import Application
-
+import screens
 
 class Home(GenericScreen):
 	def __init__(self, application: Application) -> None:
@@ -34,6 +34,8 @@ class Home(GenericScreen):
 		self.titleLable["text"] ="Home"
 		self.titleLable["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
+		
+		self.logOutButton["command"] = self.logout
 
 
 		self.topBarFrame.pack()
@@ -48,3 +50,8 @@ class Home(GenericScreen):
 		self.companyLogoLabel.pack()
 		self.titleLable.pack()
 		self.logOutButton.pack()
+	
+	def logout(self) -> None:
+		
+		self.application.setLoggedInUser(None)
+		self.application.switchForm(screens.Login)

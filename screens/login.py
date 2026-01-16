@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from .generic import GenericScreen
-from .home import Home
+import screens
 import pickle
 from application import Application
 from dataTypes.user import User
@@ -29,6 +29,8 @@ class Login(GenericScreen):
 		self.loginButton["text"] = "Login"
 		self.forgotPasswordLabel["text"] = "Forgot password? Contact admin."
 		
+		self.passwordEntry["show"] = "*"
+		
 		self.loginButton["command"] = self.login
 
 
@@ -53,5 +55,5 @@ class Login(GenericScreen):
 					continue
 				
 				self.application.setLoggedInUser(user.userID)
-				self.application.switchForm(Home)
+				self.application.switchForm(screens.Home)
 				return

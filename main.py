@@ -6,6 +6,11 @@ from screens.login import Login
 application = Application()
 application.switchForm(Login)
 
+
+while application.running:
+    application.currentScreen.mainLoop()
+
+
 #testWindow = Login(application)
 
 #testWindow.mainLoop()

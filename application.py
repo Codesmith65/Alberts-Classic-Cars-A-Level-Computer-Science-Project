@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations #https://stackoverflow.com/questions/744373/what-happens-when-using-mutual-or-circular-cyclic-imports/67673741#67673741
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from screens.generic import GenericScreen

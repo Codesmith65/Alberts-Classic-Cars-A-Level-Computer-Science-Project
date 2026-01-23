@@ -3,6 +3,8 @@ from tkinter import ttk
 from .generic import GenericScreen
 from application import Application
 
+import screens
+
 
 class Booking(GenericScreen):
 	def __init__(self, application: Application) -> None:
@@ -13,8 +15,8 @@ class Booking(GenericScreen):
 		self.topBarFrame = tk.Frame(self.root)
 		self.mainContectFrame = tk.Frame(self.root)
 
-		self.companyLogo = tk.PhotoImage
-		self.companyLogoLabel = tk.Label(self.topBarFrame)
+		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
 		self.titleLable = tk.Label(self.topBarFrame)
 		self.logOutButton = tk.Button(self.topBarFrame)
 		
@@ -35,7 +37,13 @@ class Booking(GenericScreen):
 		self.testButton1.pack()
 
 
-		self.companyLogoLabel["text"] = "logo"
+		self.companyLogoHomeButton["image"] = self.companyLogo
+		self.companyLogoHomeButton["relief"] = "flat"
+		self.companyLogoHomeButton["borderwidth"] = 0
+		self.companyLogoHomeButton["width"] = 50
+		self.companyLogoHomeButton["height"] = 50
+
+		self.companyLogoHomeButton["text"] = "logo"
 		self.titleLable["text"] ="Booking"
 		self.titleLable["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
@@ -47,12 +55,14 @@ class Booking(GenericScreen):
 		
 		self.pickUpDateLabelFrame["text"] = "Pickup Date"
 		self.dropOffDateLabelFrame["text"] = "Drop off Date"
+		
+		self.companyLogoHomeButton["command"] = self.goHome
 
 
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 
-		self.companyLogoLabel.pack()
+		self.companyLogoHomeButton.pack()
 		self.titleLable.pack()
 		self.logOutButton.pack()
 		
@@ -66,3 +76,6 @@ class Booking(GenericScreen):
 		
 		self.pickUpDateLabelFrame.pack()
 		self.dropOffDateLabelFrame.pack()
+	
+	def goHome(self) -> None:
+		self.application.switchForm(screens.Home)

@@ -82,7 +82,7 @@ class Search(GenericScreen):
 			messagebox.showwarning("Invalid search criteria", "Please enter a seach criteria to serach with")
 		
 		if self.mode == 0 or self.mode == 1:
-			foundUsers: list[Tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
+			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
 				self.createSearchResult("User", user[0], dict(zip(["ID", "Username"], user[1])))
 			

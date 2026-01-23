@@ -22,7 +22,7 @@ class Search(GenericScreen):
 		self.logOutButton = tk.Button(self.topBarFrame)
 		
 		self.searchEntry = tk.Entry(self.mainContectFrame)
-		self.SearchButton = tk.Entry(self.mainContectFrame)
+		self.SearchButton = tk.Button(self.mainContectFrame)
 		
 		self.searchResultsLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		

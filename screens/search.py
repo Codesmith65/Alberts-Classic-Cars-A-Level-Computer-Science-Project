@@ -16,8 +16,8 @@ class Search(GenericScreen):
 		self.topBarFrame = tk.Frame(self.root)
 		self.mainContectFrame = tk.Frame(self.root)
 
-		self.companyLogo = tk.PhotoImage
-		self.companyLogoLabel = tk.Button(self.topBarFrame)
+		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
 		self.titleLabel = tk.Label(self.topBarFrame)
 		self.logOutButton = tk.Button(self.topBarFrame)
 		
@@ -26,8 +26,12 @@ class Search(GenericScreen):
 		
 		self.searchResultsLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		
-
-		self.companyLogoLabel["text"] = "logo"
+		self.companyLogoHomeButton["image"] = self.companyLogo
+		self.companyLogoHomeButton["relief"] = "flat"
+		self.companyLogoHomeButton["borderwidth"] = 0
+		self.companyLogoHomeButton["width"] = 50
+		self.companyLogoHomeButton["height"] = 50
+		
 		self.titleLabel["text"] ="Search"
 		self.titleLabel["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
@@ -35,13 +39,13 @@ class Search(GenericScreen):
 		self.SearchButton["text"] = "s"
 		self.searchResultsLabelFrame["text"] = "Search Results"
 		
-		self.companyLogoLabel["command"] = self.goHome
+		self.companyLogoHomeButton["command"] = self.goHome
 		
 
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 
-		self.companyLogoLabel.pack()
+		self.companyLogoHomeButton.pack()
 		self.titleLabel.pack()
 		self.logOutButton.pack()
 		

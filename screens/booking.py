@@ -31,6 +31,8 @@ class Booking(GenericScreen):
 		self.pickUpDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		self.dropOffDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		
+		self.bookButton = tk.Button(self.mainContectFrame)
+		
 		self.testButton1 = tk.Button(self.pickUpDateLabelFrame, text="test")
 		self.testButton1.pack()
 		self.testButton1 = tk.Button(self.dropOffDateLabelFrame, text="test")
@@ -76,6 +78,8 @@ class Booking(GenericScreen):
 		
 		self.pickUpDateLabelFrame.pack()
 		self.dropOffDateLabelFrame.pack()
+
+		self.mainContectFrame.pack()
 	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)

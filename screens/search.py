@@ -84,11 +84,11 @@ class Search(GenericScreen):
 
 		searchResultFrame = tk.Frame(self.searchResultsLabelFrame)
 		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
-		subTitle: tk.Label = tk.Label(searchResultFrame, text=subTitle)
+		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
 		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
 		
 		titleLable.grid(row=0,column=0)
-		subTitle.grid(row=1, column=0)
+		subTitleLable.grid(row=1, column=0)
 		infoButton.grid(row=1,column=1)
 		searchResultFrame.pack()
 

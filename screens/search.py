@@ -28,15 +28,18 @@ class Search(GenericScreen):
 		
 		self.searchEntry = tk.Entry(self.mainContectFrame)
 		self.SearchButton = tk.Button(self.mainContectFrame)
-		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
-		
-		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
-		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame)
 
+		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
+		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
+		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
+
+		for x in range(10):
+			self.createSearchResult(str(x), str(x), {})
 		
 
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+
 		
 		self.searchResultsLabelFrame["width"] = 100
 		self.searchResultsLabelFrame["height"] = 100
@@ -57,7 +60,7 @@ class Search(GenericScreen):
 		self.companyLogoHomeButton["command"] = self.goHome
 		self.SearchButton["command"] = self.search
 		
-		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
+
 
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack(fill=tk.BOTH, expand=1)
@@ -68,6 +71,8 @@ class Search(GenericScreen):
 		
 		self.searchEntry.pack()
 		self.SearchButton.pack()
+		
+		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
 		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 		
@@ -95,6 +100,13 @@ class Search(GenericScreen):
 
 	def search(self) -> None:
 		searchCriteria: str = self.searchEntry.get()
+
+		self.canvas.destroy()
+		self.scrollBar.destroy()
+
+		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
+		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
+		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		
 		if searchCriteria == "":
 			messagebox.showwarning("Invalid search criteria", "Please enter a seach criteria to serach with")
@@ -103,6 +115,12 @@ class Search(GenericScreen):
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
 				self.createSearchResult("User", user[0], dict(zip(["ID", "Username"], user[1])))
+		
+		self.canvas.config(yscrollcommand=self.scrollBar.set)
+		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
+		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
+		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
+		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 			
 	
 	def __linearSearchFile(self, path: str, criteria: str) -> list[tuple[str, list]]:

@@ -19,8 +19,12 @@ while application.running:
 from dataTypes.user import User
 import pickle
 
-
+users=[]
 with open("data/users.pkl", "rb") as f:
     users = pickle.load(f)
     for user in users:
         print(user.getAtributes())
+
+users.append(User("Test", "test"))
+with open("data/users.pkl", "wb") as f:
+    pickle.dump(users, f)

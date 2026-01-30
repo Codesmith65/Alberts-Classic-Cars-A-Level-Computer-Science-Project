@@ -72,10 +72,6 @@ class Search(GenericScreen):
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 	
 	
-	def disableNavigation(self) -> None:
-		self.companyLogoHomeButton["state"] = tk.DISABLED
-		self.logOutButton["state"] = tk.DISABLED
-	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
 	

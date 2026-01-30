@@ -1,11 +1,11 @@
 import screens
 from application import Application
-
+import tkinter as tk
 
 
 
 application = Application()
-application.switchForm(screens.Search)
+application.switchForm(screens.Booking)
 
 
 while application.running:

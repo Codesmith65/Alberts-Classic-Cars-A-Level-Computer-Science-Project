@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+
 from .generic import GenericScreen
 from application import Application
 
 import screens
+import popups
 
 
 class Booking(GenericScreen):
@@ -52,6 +54,7 @@ class Booking(GenericScreen):
 		
 		self.clientLabel["text"] = "Client"
 		self.clientSearch["text"] = "s"
+		self.clientSearch["command"] = self.__clientSearch
 		self.vehicleLabel["text"] = "Vehicle"
 		self.vehicleSearch["text"] = "s"
 		
@@ -83,3 +86,6 @@ class Booking(GenericScreen):
 	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
+	
+	def __clientSearch(self) -> None:
+		searchScreen = popups.SearchPopup()

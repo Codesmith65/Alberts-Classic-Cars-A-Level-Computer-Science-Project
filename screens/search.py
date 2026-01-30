@@ -9,10 +9,10 @@ from application import Application
 
 
 class Search(GenericScreen):
-	def __init__(self, application: Application) -> None:
+	def __init__(self, application: Application, mode: int = 0) -> None:
 		super().__init__(application)
 		
-		self.mode = 0
+		self.mode: int = mode
 
 		self.root.title("Albert's Classic Car - Search")
 

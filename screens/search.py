@@ -32,8 +32,8 @@ class Search(GenericScreen):
 		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
 		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
-
 		
+
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
@@ -55,7 +55,7 @@ class Search(GenericScreen):
 		
 		self.companyLogoHomeButton["command"] = self.goHome
 		self.SearchButton["command"] = self.search
-		
+
 
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack(fill=tk.BOTH, expand=1)
@@ -76,23 +76,6 @@ class Search(GenericScreen):
 		self.application.switchForm(screens.Home)
 	
 
-	def createSearchResult(self, title: str, subTitle: str, data: dict) -> None:
-		infoText: str = f"{title} Data\n"
-		
-		for key in data:
-			infoText += f"\n{key}: {data[key]}"
-
-		searchResultFrame = tk.Frame(self.searchResultsLabelFrame)
-		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
-		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
-		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
-		
-		titleLable.grid(row=0,column=0)
-		subTitleLable.grid(row=1, column=0)
-		infoButton.grid(row=1,column=1)
-		searchResultFrame.pack()
-
-
 	def search(self) -> None:
 		searchCriteria: str = self.searchEntry.get()
 
@@ -109,7 +92,7 @@ class Search(GenericScreen):
 		if self.mode == 0 or self.mode == 1:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
-				self.createSearchResult("User", user[0], dict(zip(["ID", "Username"], user[1])))
+				self.__createSearchResult("User", user[0], dict(zip(["ID", "Username"], user[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
@@ -121,9 +104,6 @@ class Search(GenericScreen):
 	def __linearSearchFile(self, path: str, criteria: str) -> list[tuple[str, list]]:
 		with open(path, "rb") as file:
 			entries: list = pickle.load(file)
-				
-
-		print(entries)
 			
 		if not(type(entries) is list):
 			messagebox.showerror("File Data", "There is an issue with the file data stored")
@@ -140,3 +120,19 @@ class Search(GenericScreen):
 					continue
 		
 		return results
+	
+	def __createSearchResult(self, title: str, subTitle: str, data: dict) -> None:
+		infoText: str = f"{title} Data\n"
+		
+		for key in data:
+			infoText += f"\n{key}: {data[key]}"
+
+		searchResultFrame = tk.Frame(self.searchResultsLabelFrame)
+		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
+		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
+		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
+		
+		titleLable.grid(row=0,column=0)
+		subTitleLable.grid(row=1, column=0)
+		infoButton.grid(row=1,column=1)
+		searchResultFrame.pack()

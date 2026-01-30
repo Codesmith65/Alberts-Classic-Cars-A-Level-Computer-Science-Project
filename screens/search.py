@@ -131,7 +131,8 @@ class Search(GenericScreen):
 		print(entries)
 			
 		if not(type(entries) is list):
-			messagebox.showerror("User Data", "There is an issue with the user data stored")
+			messagebox.showerror("File Data", "There is an issue with the file data stored")
+			return
 		
 		results: list[Tuple[str, list]] = []
 

@@ -70,7 +70,11 @@ class Search(GenericScreen):
 		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
 		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
-		
+	
+	
+	def disableNavigation(self) -> None:
+		self.companyLogoHomeButton["state"] = tk.DISABLED
+		self.logOutButton["state"] = tk.DISABLED
 	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)

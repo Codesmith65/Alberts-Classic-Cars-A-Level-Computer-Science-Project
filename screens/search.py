@@ -104,7 +104,7 @@ class Search(GenericScreen):
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		
 		if searchCriteria == "":
-			messagebox.showwarning("Invalid search criteria", "Please enter a seach criteria to serach with")
+			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		
 		if self.mode == 0 or self.mode == 1:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)

@@ -33,14 +33,10 @@ class Search(GenericScreen):
 		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 
-		for x in range(10):
-			self.createSearchResult(str(x), str(x), {})
 		
-
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
-		
 		self.searchResultsLabelFrame["width"] = 100
 		self.searchResultsLabelFrame["height"] = 100
 
@@ -60,7 +56,6 @@ class Search(GenericScreen):
 		self.companyLogoHomeButton["command"] = self.goHome
 		self.SearchButton["command"] = self.search
 		
-
 
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack(fill=tk.BOTH, expand=1)

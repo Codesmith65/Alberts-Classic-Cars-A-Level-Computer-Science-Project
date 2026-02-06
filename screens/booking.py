@@ -71,6 +71,8 @@ class Booking(GenericScreen):
 		self.vehicleSearch["text"] = "s"
 		self.vehicleSearch["command"] = self.__vehicleSearch
 		
+		self.bookButton["text"] = "Create Booking"
+		
 		self.pickUpDateLabelFrame["text"] = "Pickup Date"
 		self.dropOffDateLabelFrame["text"] = "Drop off Date"
 		
@@ -133,6 +135,9 @@ class Booking(GenericScreen):
 	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
+	
+	def createBooking(self) -> None:
+		pass
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(1)

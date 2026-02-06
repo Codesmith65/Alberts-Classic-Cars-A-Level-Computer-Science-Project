@@ -33,6 +33,7 @@ class Booking(GenericScreen):
 		self.vehicleSearch = tk.Button(self.mainContectFrame)
 		
 		self.clientEntryStringVar = tk.StringVar()
+		self.vehicleEntryStringVar = tk.StringVar()
 		
 		self.pickUpDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		self.dropOffDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
@@ -57,12 +58,14 @@ class Booking(GenericScreen):
 		self.logOutButton["text"] = "Logout"
 		
 		self.clientEntry["textvariable"] = self.clientEntryStringVar
+		self.vehicleEntry["textvariable"] = self.vehicleEntryStringVar
 		
 		self.clientLabel["text"] = "Client"
 		self.clientSearch["text"] = "s"
 		self.clientSearch["command"] = self.__clientSearch
 		self.vehicleLabel["text"] = "Vehicle"
 		self.vehicleSearch["text"] = "s"
+		self.vehicleSearch["command"] = self.__vehicleSearch
 		
 		self.pickUpDateLabelFrame["text"] = "Pickup Date"
 		self.dropOffDateLabelFrame["text"] = "Drop off Date"
@@ -95,8 +98,11 @@ class Booking(GenericScreen):
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(1)
-		
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
+	
+	def __vehicleSearch(self) -> None:
+		searchScreen = popups.SearchPopup(2)
+		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.vehicleEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
 	def __clsoeSerachPopup(self, popup: popups.SearchPopup, stringVar: tk.StringVar):
 		serachResultData = popup.selctedData

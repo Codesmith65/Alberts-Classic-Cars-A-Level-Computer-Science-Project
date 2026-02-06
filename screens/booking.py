@@ -1,5 +1,7 @@
+from sqlite3 import enable_callback_tracebacks
 import tkinter as tk
-from tkinter import ttk
+from tkinter import StringVar, ttk
+from tkinter import messagebox
 
 from .generic import GenericScreen
 from application import Application
@@ -30,6 +32,8 @@ class Booking(GenericScreen):
 		self.vehicleEntry = tk.Entry(self.mainContectFrame)
 		self.vehicleSearch = tk.Button(self.mainContectFrame)
 		
+		self.clientEntryStringVar = tk.StringVar()
+		
 		self.pickUpDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		self.dropOffDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
 		
@@ -51,6 +55,8 @@ class Booking(GenericScreen):
 		self.titleLable["text"] ="Booking"
 		self.titleLable["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
+		
+		self.clientEntry["textvariable"] = self.clientEntryStringVar
 		
 		self.clientLabel["text"] = "Client"
 		self.clientSearch["text"] = "s"
@@ -89,3 +95,15 @@ class Booking(GenericScreen):
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup()
+		
+		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
+	
+	def __clsoeSerachPopup(self, popup: popups.SearchPopup, stringVar: tk.StringVar):
+		serachResultData = popup.selctedData
+		if serachResultData == {}:
+			messagebox.showerror("No result selected", "No search result was selcted")
+			popup.topLevel.destroy()
+			return
+
+		stringVar.set(str(serachResultData["id"]))
+		popup.topLevel.destroy()

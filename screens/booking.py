@@ -94,7 +94,7 @@ class Booking(GenericScreen):
 		self.application.switchForm(screens.Home)
 	
 	def __clientSearch(self) -> None:
-		searchScreen = popups.SearchPopup()
+		searchScreen = popups.SearchPopup(1)
 		
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	

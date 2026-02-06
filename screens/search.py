@@ -92,7 +92,7 @@ class Search(GenericScreen):
 		if self.mode == 0 or self.mode == 1:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
-				self.__createSearchResult("User", user[0], dict(zip(["ID", "Username"], user[1])))
+				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))

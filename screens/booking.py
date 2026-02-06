@@ -101,7 +101,7 @@ class Booking(GenericScreen):
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
 	def __vehicleSearch(self) -> None:
-		searchScreen = popups.SearchPopup(2)
+		searchScreen = popups.SearchPopup(5)
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.vehicleEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
 	def __clsoeSerachPopup(self, popup: popups.SearchPopup, stringVar: tk.StringVar):

@@ -101,7 +101,7 @@ class SearchPopup:
 			entryAttributes: list[str] = entry.getAtributes()
 			
 			for attribute in entryAttributes:
-				if criteria in str(attribute):
+				if criteria in str(attribute).lower():
 					results.append((str(attribute), entryAttributes))
 					continue
 		

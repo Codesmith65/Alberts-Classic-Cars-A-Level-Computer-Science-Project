@@ -28,12 +28,12 @@ class SearchPopup:
 		self.SearchButton = tk.Button(self.mainContectFrame)
         
 		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
-		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
+		self.searchResultsFrame = tk.Frame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
-		self.searchResultsLabelFrame["width"] = 100
-		self.searchResultsLabelFrame["height"] = 100
+		self.searchResultsFrame["width"] = 100
+		self.searchResultsFrame["height"] = 100
         
 		self.companyLogoLabel["image"] = self.companyLogo
 		self.companyLogoLabel["relief"] = "flat"
@@ -43,7 +43,6 @@ class SearchPopup:
 		self.titleLabel["text"] ="Search"
 		self.titleLabel["font"] = ("Helvetica", 40)
 		self.SearchButton["image"] = self.searchIcon
-		self.searchResultsLabelFrame["text"] = "Search Results"
 		self.SearchButton["command"] = self.search		
 		
 
@@ -56,7 +55,7 @@ class SearchPopup:
 		self.searchEntry.pack()
 		self.SearchButton.pack()
         
-		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
+		self.canvas.create_window((0, 0), window=self.searchResultsFrame, anchor="nw")
 		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
     
@@ -67,7 +66,7 @@ class SearchPopup:
 		self.scrollBar.destroy()
 
 		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
-		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
+		self.searchResultsFrame = tk.LabelFrame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		
 		if searchCriteria == "":
@@ -80,7 +79,7 @@ class SearchPopup:
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
-		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
+		self.canvas.create_window((0, 0), window=self.searchResultsFrame, anchor="nw")
 		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 	
@@ -110,7 +109,7 @@ class SearchPopup:
 		for key in data:
 			infoText += f"\n{key}: {data[key]}"
 
-		searchResultFrame = tk.Frame(self.searchResultsLabelFrame)
+		searchResultFrame = tk.Frame(self.searchResultsFrame)
 		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
 		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
 		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
@@ -123,7 +122,7 @@ class SearchPopup:
 		searchResultFrame.pack()
 
 	def __select(self, frame: tk.Frame, data: dict) -> None:
-		children = self.searchResultsLabelFrame.children
+		children = self.searchResultsFrame.children
 				
 		for child in children:
 			children[child].configure(bg="SystemButtonFace")

@@ -6,6 +6,8 @@ from tkinter import messagebox
 
 class SearchPopup:
 	def __init__(self, mode: int = 0) -> None:
+		self.selctedData: dict = {}
+
 		self.topLevel = tk.Toplevel()
 		self.topLevel.title("Albert's Classic Car - Search")
 		self.topLevel.geometry("1000x600")
@@ -112,7 +114,7 @@ class SearchPopup:
 		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
 		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
 		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
-		selectButton: tk.Button = tk.Button(searchResultFrame, text="Select", command=lambda id="": self.__select(id))						
+		selectButton: tk.Button = tk.Button(searchResultFrame, text="Select", command=lambda frame=searchResultFrame, data=data: self.__select(frame, data))						
 		
 		titleLable.grid(row=0,column=0)
 		subTitleLable.grid(row=1, column=0)
@@ -120,9 +122,12 @@ class SearchPopup:
 		selectButton.grid(row=2, column=0)		
 		searchResultFrame.pack()
 
-	def __select(self, id) -> None:
+	def __select(self, frame: tk.Frame, data: dict) -> None:
 		children = self.searchResultsLabelFrame.children
 				
 		for child in children:
-			children[child].configure(bg="SystemButtonFace")	
+			children[child].configure(bg="SystemButtonFace")
+		
+		frame.configure(bg="Blue")
+		self.selctedData = data
 		

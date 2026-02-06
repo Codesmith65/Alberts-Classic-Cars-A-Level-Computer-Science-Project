@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, KW_ONLY
 from uuid import UUID, uuid4
 
 
@@ -9,7 +9,12 @@ class Vehicle:
 	colour: str
 	registration: str
 	vin: str
-	vehicleID: UUID = uuid4()
+	_: KW_ONLY
+	vehicleID: UUID|None = None
+	
+	def __post_init__(self):
+		if self.vehicleID is None:
+			self.vehicleID = uuid4()
 
 	def getAtributes(self) -> list[UUID|str]:
 		return [self.vehicleID, self.make, self.model, self.colour, self.registration, self.vin]

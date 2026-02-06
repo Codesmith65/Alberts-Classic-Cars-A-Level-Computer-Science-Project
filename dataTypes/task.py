@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import KW_ONLY, dataclass
 from uuid import UUID, uuid4
 
 
@@ -9,7 +9,12 @@ class Task:
 	completed: bool
 	parentTask: UUID
 	staffID: UUID
-	taskID: UUID = uuid4()
+	_: KW_ONLY
+	taskID: UUID|None = None
+	
+	def __post_init__(self):
+		if self.taskID is None:
+			self.taskID = uuid4()
 
 	def getAtributes(self) -> list[UUID|str|bool]:
 		return [self.taskID, self.taskName, self.taskDescription, self.completed, self.parentTask, self.staffID]

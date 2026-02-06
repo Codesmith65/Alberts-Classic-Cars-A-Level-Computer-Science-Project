@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import KW_ONLY, dataclass
 from uuid import UUID, uuid4
 
 
@@ -11,7 +11,12 @@ class Booking:
 	pickupLocation: UUID
 	dropoffDate: int
 	dropoffLocation: UUID
-	bookingID: UUID = uuid4()
+	_: KW_ONLY
+	bookingID: UUID|None
+	
+	def __post_init__(self):
+		if self.bookingID is None:
+			self.bookingID = uuid4()
 
 	def getAtributes(self) -> list[UUID|int]:
 		return [self.bookingID, self.staffID, self.clientID, self.vehicleID, self.pickupDate, self.pickupLocation, self.dropoffDate, self.pickupLocation]

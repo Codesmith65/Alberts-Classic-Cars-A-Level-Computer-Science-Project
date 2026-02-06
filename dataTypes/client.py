@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import KW_ONLY, dataclass
 from uuid import UUID, uuid4
 
 
@@ -9,7 +9,12 @@ class Client:
 	email: str
 	address: str
 	phoneNumber: str
-	clientID: UUID = uuid4()
+	_: KW_ONLY
+	clientID: UUID|None = None
+	
+	def __post_init__(self):
+		if self.clientID is None:
+			self.clientID = uuid4()
 
 	def getAtributes(self) -> list[str | UUID]:
 		return [self.clientID, self.firstName, self.lastName, self.email, self.address, self.phoneNumber]

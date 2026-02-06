@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import KW_ONLY, dataclass
 from uuid import UUID, uuid4
 
 
@@ -6,7 +6,12 @@ from uuid import UUID, uuid4
 class User:
 	username: str
 	password: str
-	userID: UUID = uuid4()
+	_: KW_ONLY
+	userID: UUID|None = None
+	
+	def __post_init__(self):
+		if self.userID is None:
+			self.userID = uuid4()
 
 	def getAtributes(self) -> list[UUID|str]:
 		return[self.userID, self.username]

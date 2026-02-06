@@ -77,9 +77,9 @@ class SearchPopup:
 			for user in foundUsers:
 				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
 		if self.mode == 0 or self.mode == 5:
-			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
-			for user in foundUsers:
-				self.__createSearchResult("Vehicle", user[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], user[1])))
+			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
+			for vehicle in foundVehicles:
+				self.__createSearchResult("Vehicle", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))

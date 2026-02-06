@@ -66,7 +66,7 @@ class SearchPopup:
 		self.scrollBar.destroy()
 
 		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
-		self.searchResultsFrame = tk.LabelFrame(self.canvas)
+		self.searchResultsFrame = tk.Frame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		
 		if searchCriteria == "":

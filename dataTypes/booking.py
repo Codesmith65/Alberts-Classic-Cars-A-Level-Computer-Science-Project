@@ -12,7 +12,7 @@ class Booking:
 	dropoffDate: int
 	dropoffLocation: UUID
 	_: KW_ONLY
-	bookingID: UUID|None
+	bookingID: UUID|None = None
 	
 	def __post_init__(self):
 		if self.bookingID is None:

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from sqlite3 import enable_callback_tracebacks
 import tkinter as tk
 from tkinter import StringVar, ttk
@@ -77,6 +77,7 @@ class Booking(GenericScreen):
 		self.dropOffDateLabelFrame["text"] = "Drop off Date"
 		
 		self.companyLogoHomeButton["command"] = self.goHome
+		self.bookButton["command"] = self.createBooking
 		
 		self.pickUpDay["state"] = "readonly"
 		self.pickUpMonth["state"] = "readonly"
@@ -137,7 +138,18 @@ class Booking(GenericScreen):
 		self.application.switchForm(screens.Home)
 	
 	def createBooking(self) -> None:
-		pass
+		try:
+			datetime.strptime("32-01-1996", "%d-%m-%Y")
+		except ValueError as e:
+			print(e)
+		
+		if self.clientEntryStringVar.get() == "":
+			messagebox.showwarning("Client ID", "Client ID not populated, please enter a client ID.")
+			return
+		
+		if self.vehicleEntryStringVar.get() == "":
+			messagebox.showwarning("Vehicle ID", "Vehicle ID not populated, please enter a vehicle ID")
+			return
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(1)

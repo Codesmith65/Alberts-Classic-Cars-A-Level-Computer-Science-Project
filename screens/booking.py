@@ -138,17 +138,32 @@ class Booking(GenericScreen):
 		self.application.switchForm(screens.Home)
 	
 	def createBooking(self) -> None:
-		try:
-			datetime.strptime("32-01-1996", "%d-%m-%Y")
-		except ValueError as e:
-			print(e)
-		
 		if self.clientEntryStringVar.get() == "":
 			messagebox.showwarning("Client ID", "Client ID not populated, please enter a client ID.")
 			return
 		
 		if self.vehicleEntryStringVar.get() == "":
 			messagebox.showwarning("Vehicle ID", "Vehicle ID not populated, please enter a vehicle ID")
+			return
+		
+		pickUpDay = self.pickUpDay.get()
+		pickUpMonth = self.pickUpMonth.get()
+		pickUpYear = self.pickUpYear.get()
+
+		try:
+			pickUpDate = date.fromisoformat(f"{pickUpYear}-{pickUpMonth}-{pickUpDay}")
+		except ValueError as e:
+			messagebox.showwarning("Pick up date", str(e))
+			return
+		
+		dropOffDay = self.dropOffDay.get()
+		dropOffMonth = self.dropOffMonth.get()
+		dropOffYear = self.dropOffYear.get()
+
+		try:
+			dropOffDate = date.fromisoformat(f"{dropOffYear}-{dropOffMonth}-{dropOffDay}")
+		except ValueError as e:
+			messagebox.showwarning("Drop off date", str(e))
 			return
 	
 	def __clientSearch(self) -> None:

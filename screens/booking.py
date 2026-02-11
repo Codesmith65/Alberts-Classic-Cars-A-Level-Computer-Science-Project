@@ -137,11 +137,13 @@ class Booking(GenericScreen):
 		self.application.switchForm(screens.Home)
 	
 	def createBooking(self) -> None:
-		if self.clientEntryStringVar.get() == "":
+		clientID = self.clientEntryStringVar.get()
+		if clientID == "":
 			messagebox.showwarning("Client ID", "Client ID not populated, please enter a client ID.")
 			return
 		
-		if self.vehicleEntryStringVar.get() == "":
+		vehicleID = self.vehicleEntryStringVar.get()
+		if vehicleID == "":
 			messagebox.showwarning("Vehicle ID", "Vehicle ID not populated, please enter a vehicle ID")
 			return
 		

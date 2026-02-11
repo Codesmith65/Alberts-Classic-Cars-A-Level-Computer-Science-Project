@@ -76,6 +76,10 @@ class SearchPopup:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
 				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
+		if self.mode == 0 or self.mode == 3:
+			foundClients: list[tuple[str, list]] = self.__linearSearchFile("data/clients.pkl", searchCriteria)
+			for client in foundClients:
+				self.__createSearchResult("Client", client[0], dict(zip(["id", "first name", "last name", "email", "address", "phone number"], client[1])))
 		if self.mode == 0 or self.mode == 5:
 			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
 			for vehicle in foundVehicles:

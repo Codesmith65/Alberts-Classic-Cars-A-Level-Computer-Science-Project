@@ -152,7 +152,7 @@ class Booking(GenericScreen):
 		pickUpYear = self.pickUpYear.get()
 
 		try:
-			pickUpDate = date.fromisoformat(f"{pickUpYear}-{pickUpMonth}-{pickUpDay}")
+			pickUpDate = datetime.fromisoformat(f"{pickUpYear}-{pickUpMonth}-{pickUpDay}")
 		except ValueError as e:
 			messagebox.showwarning("Pick up date", str(e))
 			return
@@ -162,7 +162,7 @@ class Booking(GenericScreen):
 		dropOffYear = self.dropOffYear.get()
 
 		try:
-			dropOffDate = date.fromisoformat(f"{dropOffYear}-{dropOffMonth}-{dropOffDay}")
+			dropOffDate = datetime.fromisoformat(f"{dropOffYear}-{dropOffMonth}-{dropOffDay}")
 		except ValueError as e:
 			messagebox.showwarning("Drop off date", str(e))
 			return

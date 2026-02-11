@@ -1,5 +1,4 @@
 from datetime import datetime, date
-from sqlite3 import enable_callback_tracebacks
 import tkinter as tk
 from tkinter import StringVar, ttk
 from tkinter import messagebox

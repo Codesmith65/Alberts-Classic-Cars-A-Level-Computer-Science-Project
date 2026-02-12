@@ -51,6 +51,9 @@ with open("data/vehicles.pkl", "bw") as f:
     
 with open("data/clients.pkl", "bw") as f:
     pickle.dump(clients, f)
+
+with open("data/staff.pkl", "bw") as f:
+    pickle.dump(staffs, f)
     
 # with open("data/locations.pkl", "bw") as f:
 #     pickle.dump(locations, f)

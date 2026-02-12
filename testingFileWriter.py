@@ -12,13 +12,20 @@ from dataTypes.vehicle import Vehicle
 import pickle
 
 
-# Creating users
+# Creating users and staff
 users = []
-users.append(User("admin", "admin"))
+staffs = []
+adminUser = User("admin", "admin")
+adminStaff = Staff(adminUser.userID, "admin", "admin", "admin address", "012345678")
+users.append(adminUser)
+staffs.append(adminStaff)
 
 for x in range(20):
-    users.append(User(f"TestUser{x}", "test"))
-    
+    user = User(f"TestUser{x}", "test")
+    staff = Staff(user.userID, f"staffFirstName{x}", f"staffLastName{x}", f"staffAddress{x}", f"staffPhoneNumber{x}")
+    users.append(user)
+    staffs.append(staff)
+
 # Creating vehicles
 vehicles = []
 for x in range(50):

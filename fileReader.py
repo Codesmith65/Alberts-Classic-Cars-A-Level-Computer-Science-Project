@@ -2,7 +2,7 @@ import pickle
 import os.path
 
 
-dataFolderPath = "K:\\A-Level Course Work\\Alberts-Classic-Cars-A-Level-Computer-Science-Project\\data\\"
+dataFolderPath = "data/"
 
 running = True
 while running:

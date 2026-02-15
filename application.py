@@ -16,6 +16,9 @@ class Application:
     
     def setLoggedInUser(self, userID: UUID|None) -> None:
         self.logedInUser = userID
+    
+    def setLoggedInStaff(self, staffID: UUID|None) ->None:
+        self.loggedInStaff = staffID
 
     def switchForm(self, newForm: GenericScreen) -> None:
         if self.currentScreen != None:

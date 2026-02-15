@@ -8,7 +8,8 @@ from uuid import UUID
 
 class Application:
     def __init__(self) -> None:
-        self.logedInUser: UUID|None = UUID("b40fe4be-ad61-45a8-8692-494a568be704")
+        self.logedInUser: UUID|None = UUID("d8eec26b-91c3-4144-b2f7-97ec1f20d064")
+        self.loggedInStaff: UUID|None = UUID("e22e4c85-589f-4370-b052-599cb3dabbc9")
         self.currentScreen: GenericScreen|None = None
         
         self.running: bool = True

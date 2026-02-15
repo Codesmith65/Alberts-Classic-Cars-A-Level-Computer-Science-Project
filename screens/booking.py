@@ -177,7 +177,7 @@ class Booking(GenericScreen):
 			messagebox.showwarning("Pick up and drop off", "Pick up date can't be after drop off date")
 			return
 	
-		booking = BookingDataType(uuid4(), UUID(clientID), UUID(vehicleID), int(pickUpDate.timestamp()), uuid4(), int(dropOffDate.timestamp()), uuid4()) #Currently location id randomised
+		booking = BookingDataType(self.application.loggedInStaff, UUID(clientID), UUID(vehicleID), int(pickUpDate.timestamp()), uuid4(), int(dropOffDate.timestamp()), uuid4()) #Currently location id randomised
 		
 		if os.path.isfile("data/bookings.pkl"):
 			with open("data/bookings.pkl", "rb") as bookingFile:

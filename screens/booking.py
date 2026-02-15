@@ -9,6 +9,9 @@ from application import Application
 from dataTypes.booking import Booking as BookingDataType
 from uuid import UUID, uuid4
 
+import os.path
+import pickle
+
 import screens
 import popups
 
@@ -174,6 +177,18 @@ class Booking(GenericScreen):
 			messagebox.showwarning("Pick up and drop off", "Pick up date can't be after drop off date")
 			return
 	
+		booking = BookingDataType(uuid4(), UUID(clientID), UUID(vehicleID), int(pickUpDate.timestamp()), uuid4(), int(dropOffDate.timestamp()), uuid4()) #Currently location id randomised
+		
+		if os.path.isfile("data/bookings.pkl"):
+			with open("data/bookings.pkl", "rb") as bookingFile:
+				bookings = pickle.load(bookingFile)
+		else:
+			bookings = []
+
+		bookings.append(booking)
+
+		with open("data/bookings.pkl", "wb") as bookingFile:
+			pickle.dump(bookings, bookingFile)
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(3)

@@ -6,6 +6,9 @@ from tkinter import messagebox
 from .generic import GenericScreen
 from application import Application
 
+from dataTypes.booking import Booking as BookingDataType
+from uuid import UUID, uuid4
+
 import screens
 import popups
 
@@ -166,6 +169,11 @@ class Booking(GenericScreen):
 		except ValueError as e:
 			messagebox.showwarning("Drop off date", str(e))
 			return
+		
+		if pickUpDate > dropOffDate:
+			messagebox.showwarning("Pick up and drop off", "Pick up date can't be after drop off date")
+			return
+	
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(3)

@@ -6,6 +6,7 @@ import screens
 import pickle
 from application import Application
 from dataTypes.user import User
+from dataTypes.staff import Staff
 
 
 class Login(GenericScreen):
@@ -48,15 +49,24 @@ class Login(GenericScreen):
 		username: str = self.usernameEntry.get()
 		password: str = self.passwordEntry.get()
 		
+		users: list[User] = []
+		staffs: list[Staff] = []
 		with open("data/users.pkl", "rb") as userFile:
-			users: list[User] = pickle.load(userFile)
+			users = pickle.load(userFile)
+		
+		with open("data/staff.pkl", "rb") as staffFile:
+			staffs = pickle.load(staffFile)
 			
-			for user in users:
-				if not user.checkCredentials(username, password):
-					continue
-				
-				self.application.setLoggedInUser(user.userID)
-				self.application.switchForm(screens.Home)
-				return
+		for user in users:
+			if not user.checkCredentials(username, password):
+				continue
+
+			for staff in staffs:
+				if staff.userID == user.userID:
+					self.application.setLoggedInStaff(staff.staffID)
+			
+			self.application.setLoggedInUser(user.userID)
+			self.application.switchForm(screens.Home)
+			return
 		
 		messagebox.showwarning("Incorect username or password", "The username or password is incorrect, please ensure that the details are correct")

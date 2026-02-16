@@ -14,6 +14,7 @@ class Invoice(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 
+		#Creating wigets and setting window title
 		self.root.title("Albert's Classic Car - Invoice")
 
 		self.topBarFrame = tk.Frame(self.root)
@@ -35,6 +36,7 @@ class Invoice(GenericScreen):
 		self.statusLabel = tk.Label(self.mainContectFrame)
 
 
+		#Checking weather a booking ID has been provided from previous screen
 		if not "BookingID" in self.application.crossScreenDataStore:
 			self.BookingIDLabel["text"] = "BookingID: No booking inputed"
 			messagebox.showerror("Booking ID", "No booking ID has been passed to this form, try going back and reloading form, if persists contact administartor")
@@ -42,6 +44,7 @@ class Invoice(GenericScreen):
 		self.bookingID: UUID = self.application.crossScreenDataStore["BookingID"]
 		self.booking: Booking|None = None
 
+		#Loading bookings and searcing for specified one, handles errors where data is stored in incorcet form or the booking isnt found
 		with open("data/bookings.pkl", "br") as bookingsFile:
 			bookings: list[Booking] = pickle.load(bookingsFile)
 
@@ -57,12 +60,14 @@ class Invoice(GenericScreen):
 				messagebox.showerror("Booking not found", "The requested booking was not found, please contact the administrator")
 				return #Placeholder, this functionality should be abstracted to function so ui can be created regardless if booking is found or not
 		
+		#Calculates duration in days and how much itll cost
 		bookingDuration = (self.booking.dropoffDate - self.booking.pickupDate) / 86400
 		bookingCost = bookingDuration * 20 #Cost of booking a car per day
 		bookingDeposit = bookingCost * 0.1 #Deposite is 10% of booking cost
 		bookingBalence = bookingCost - bookingDeposit
 
 
+		#Configuring widgets to have correct infomation and functionality
 		self.companyLogoLabel["text"] = "logo"
 		self.titleLabel["text"] ="Invoice"
 		self.titleLabel["font"] = ("Helvetica", 40)
@@ -80,6 +85,7 @@ class Invoice(GenericScreen):
 		self.statusLabel["text"] = f"Status: {self.booking.status}"
 
 
+		#Position widgets on gui
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 
@@ -98,5 +104,6 @@ class Invoice(GenericScreen):
 		self.statusLabel.pack()
 	
 
+	#Functionality for home button to switch form
 	def __goHome(self):
 		self.application.switchForm(screens.Home)

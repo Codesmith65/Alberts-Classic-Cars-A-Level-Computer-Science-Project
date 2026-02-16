@@ -1,4 +1,3 @@
-from re import S
 import tkinter as tk
 from tkinter import ttk, messagebox
 from .generic import GenericScreen

@@ -189,6 +189,8 @@ class Booking(GenericScreen):
 
 		with open("data/bookings.pkl", "wb") as bookingFile:
 			pickle.dump(bookings, bookingFile)
+		
+		self.application.switchForm(screens.Invoice, {"BookingID": booking.bookingID})
 	
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(3)

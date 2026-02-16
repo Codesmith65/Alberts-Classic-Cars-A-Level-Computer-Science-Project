@@ -19,10 +19,10 @@ class Invoice(GenericScreen):
 		self.topBarFrame = tk.Frame(self.root)
 		self.mainContectFrame = tk.Frame(self.root)
 
-		self.companyLogo = tk.PhotoImage
-		self.companyLogoLabel = tk.Label(self.topBarFrame)
+		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
 		self.titleLabel = tk.Label(self.topBarFrame)
-		self.homeButton = tk.Button(self.topBarFrame)
+		self.logOutButton = tk.Button(self.topBarFrame)
 		
 		self.BookingIDLabel = tk.Label(self.mainContectFrame)
 		self.pickUpLabel = tk.Label(self.mainContectFrame)
@@ -67,11 +67,17 @@ class Invoice(GenericScreen):
 
 
 		#Configuring widgets to have correct infomation and functionality
-		self.companyLogoLabel["text"] = "logo"
+		self.companyLogoHomeButton["image"] = self.companyLogo
+		self.companyLogoHomeButton["relief"] = "flat"
+		self.companyLogoHomeButton["borderwidth"] = 0
+		self.companyLogoHomeButton["width"] = 50
+		self.companyLogoHomeButton["height"] = 50
+		self.companyLogoHomeButton["command"] = self.__goHome
+		
+		self.companyLogoHomeButton["text"] = "logo"
 		self.titleLabel["text"] ="Invoice"
 		self.titleLabel["font"] = ("Helvetica", 40)
-		self.homeButton["text"] = "Home"
-		self.homeButton["command"] = self.__goHome
+		self.logOutButton["text"] = "Logout"
 
 		self.BookingIDLabel["text"] = f"BookingID: {self.bookingID}"
 		self.pickUpLabel["text"] = f"Pickup: {datetime.fromtimestamp(self.booking.pickupDate):%d/%m/%Y}"
@@ -88,9 +94,9 @@ class Invoice(GenericScreen):
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 
-		self.companyLogoLabel.pack()
+		self.companyLogoHomeButton.pack()
 		self.titleLabel.pack()
-		self.homeButton.pack()
+		self.logOutButton.pack()
 		
 		self.BookingIDLabel.pack()
 		self.pickUpLabel.pack()

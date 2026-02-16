@@ -21,7 +21,7 @@ class Application:
     def setLoggedInStaff(self, staffID: UUID|None) ->None:
         self.loggedInStaff = staffID
 
-    def switchForm(self, newForm: GenericScreen, crossScreenData: dict) -> None:
+    def switchForm(self, newForm: GenericScreen, crossScreenData: dict = {}) -> None:
         self.crossScreenDataStore.clear()
         self.crossScreenDataStore = crossScreenData
 

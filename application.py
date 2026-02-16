@@ -11,6 +11,7 @@ class Application:
         self.logedInUser: UUID|None = UUID("d8eec26b-91c3-4144-b2f7-97ec1f20d064")
         self.loggedInStaff: UUID|None = UUID("e22e4c85-589f-4370-b052-599cb3dabbc9")
         self.currentScreen: GenericScreen|None = None
+        self.crossScreenDataStore: dict = {}
         
         self.running: bool = True
     
@@ -20,7 +21,10 @@ class Application:
     def setLoggedInStaff(self, staffID: UUID|None) ->None:
         self.loggedInStaff = staffID
 
-    def switchForm(self, newForm: GenericScreen) -> None:
+    def switchForm(self, newForm: GenericScreen, crossScreenData: dict) -> None:
+        self.crossScreenDataStore.clear()
+        self.crossScreenDataStore = crossScreenData
+
         if self.currentScreen != None:
             self.currentScreen.root.destroy()
         

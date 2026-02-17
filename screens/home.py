@@ -14,8 +14,8 @@ class Home(GenericScreen):
 		self.mainContectFrame = tk.Frame(self.root)
 		self.navigationButtonsFrame = tk.Frame(self.mainContectFrame)
 
-		self.companyLogo = tk.PhotoImage
-		self.companyLogoLabel = tk.Label(self.topBarFrame)
+		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
+		self.companyLogoHomeButton = tk.Label(self.topBarFrame)
 		self.titleLable = tk.Label(self.topBarFrame)
 		self.logOutButton = tk.Button(self.topBarFrame)
 
@@ -30,7 +30,10 @@ class Home(GenericScreen):
 		self.bookingButton["text"] = "Create Booking"
 		self.taskButton["text"] = "Tasks"
 
-		self.companyLogoLabel["text"] = "logo"
+		self.companyLogoHomeButton["image"] = self.companyLogo
+		self.companyLogoHomeButton["width"] = 50
+		self.companyLogoHomeButton["height"] = 50
+
 		self.titleLable["text"] ="Home"
 		self.titleLable["font"] = ("Helvetica", 40)
 		self.logOutButton["text"] = "Logout"
@@ -51,7 +54,7 @@ class Home(GenericScreen):
 		#self.taskButton.grid(row=0, column=2)
 		#self.accountsButton.grid(row=1, column=1)
 
-		self.companyLogoLabel.pack()
+		self.companyLogoHomeButton.pack()
 		self.titleLable.pack()
 		self.logOutButton.pack()
 	

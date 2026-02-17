@@ -86,6 +86,8 @@ class Search(GenericScreen):
 		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 		
+		self.mainContectFrame.update()
+		
 		if searchCriteria == "":
 			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		

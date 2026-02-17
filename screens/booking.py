@@ -20,6 +20,7 @@ class Booking(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 
+		#Creating witgets and seting window title
 		self.root.title("Albert's Classic Car - Booking")
 
 		self.topBarFrame = tk.Frame(self.root)
@@ -55,6 +56,7 @@ class Booking(GenericScreen):
 		self.bookButton = tk.Button(self.mainContectFrame)
 
 
+		#Configuring the widgets
 		self.companyLogoHomeButton["image"] = self.companyLogo
 		self.companyLogoHomeButton["relief"] = "flat"
 		self.companyLogoHomeButton["borderwidth"] = 0
@@ -108,6 +110,7 @@ class Booking(GenericScreen):
 		self.dropOffYear["values"] = years
 
 
+		#Placing the widgest on the GUI
 		self.topBarFrame.pack()
 		self.mainContectFrame.pack()
 
@@ -139,20 +142,25 @@ class Booking(GenericScreen):
 		self.mainContectFrame.pack()
 		
 	
+	#Takes the uses back to the home screen
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
 	
+	#Complets validation and then creates a booking if they check out
 	def createBooking(self) -> None:
+		#Validates if the client id is populated
 		clientID = self.clientEntryStringVar.get()
 		if clientID == "":
 			messagebox.showwarning("Client ID", "Client ID not populated, please enter a client ID.")
 			return
 		
+		#Validates weather vehicle id is populated
 		vehicleID = self.vehicleEntryStringVar.get()
 		if vehicleID == "":
 			messagebox.showwarning("Vehicle ID", "Vehicle ID not populated, please enter a vehicle ID")
 			return
 		
+		#Validates if the pick up date is proveded and a valid date
 		pickUpDay = self.pickUpDay.get()
 		pickUpMonth = self.pickUpMonth.get()
 		pickUpYear = self.pickUpYear.get()
@@ -163,6 +171,7 @@ class Booking(GenericScreen):
 			messagebox.showwarning("Pick up date", str(e))
 			return
 		
+		#Validates if the drop off date is proveded and a valid date
 		dropOffDay = self.dropOffDay.get()
 		dropOffMonth = self.dropOffMonth.get()
 		dropOffYear = self.dropOffYear.get()
@@ -173,12 +182,15 @@ class Booking(GenericScreen):
 			messagebox.showwarning("Drop off date", str(e))
 			return
 		
+		#Checks that the pick update is before teh drop off date
 		if pickUpDate > dropOffDate:
 			messagebox.showwarning("Pick up and drop off", "Pick up date can't be after drop off date")
 			return
 	
+		#Creates the booking
 		booking = BookingDataType(self.application.loggedInStaff, UUID(clientID), UUID(vehicleID), int(pickUpDate.timestamp()), uuid4(), int(dropOffDate.timestamp()), uuid4()) #Currently location id randomised
 		
+		#Checks if the booking file exists and if so loads the current bookings
 		if os.path.isfile("data/bookings.pkl"):
 			with open("data/bookings.pkl", "rb") as bookingFile:
 				bookings = pickle.load(bookingFile)
@@ -187,19 +199,24 @@ class Booking(GenericScreen):
 
 		bookings.append(booking)
 
+		#Saves the bookings to the file
 		with open("data/bookings.pkl", "wb") as bookingFile:
 			pickle.dump(bookings, bookingFile)
 		
+		#Switches form and adds the booking id to the cross screen data
 		self.application.switchForm(screens.Invoice, {"BookingID": booking.bookingID})
 	
+	#Shows a search screen for a cliet
 	def __clientSearch(self) -> None:
 		searchScreen = popups.SearchPopup(3)
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
+	#Shows a search window for a vehicle
 	def __vehicleSearch(self) -> None:
 		searchScreen = popups.SearchPopup(5)
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.vehicleEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
+	#Closes the popup search screen an sets the selected value to teh field
 	def __clsoeSerachPopup(self, popup: popups.SearchPopup, stringVar: tk.StringVar):
 		serachResultData = popup.selctedData
 		if serachResultData == {}:

@@ -57,6 +57,7 @@ class Home(GenericScreen):
 	
 	def logout(self) -> None:
 		self.application.setLoggedInUser(None)
+		self.application.setLoggedInStaff(None)
 		self.application.switchForm(screens.Login)
 	
 	def openSearch(self) -> None:

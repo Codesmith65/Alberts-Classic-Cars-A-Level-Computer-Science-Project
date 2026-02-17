@@ -78,6 +78,8 @@ class Booking(GenericScreen):
 		self.vehicleSearch["text"] = "s"
 		self.vehicleSearch["command"] = self.__vehicleSearch
 		
+		self.logOutButton["command"] = self.logout
+
 		self.bookButton["text"] = "Create Booking"
 		
 		self.pickUpDateLabelFrame["text"] = "Pickup Date"
@@ -145,6 +147,12 @@ class Booking(GenericScreen):
 	#Takes the uses back to the home screen
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
+	
+	#Logsout the user and takes them to the login screen
+	def logout(self) -> None:
+		self.application.setLoggedInUser(None)
+		self.application.setLoggedInStaff(None)
+		self.application.switchForm(screens.Login)
 	
 	#Complets validation and then creates a booking if they check out
 	def createBooking(self) -> None:

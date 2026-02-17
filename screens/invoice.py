@@ -73,6 +73,7 @@ class Invoice(GenericScreen):
 		self.companyLogoHomeButton["width"] = 50
 		self.companyLogoHomeButton["height"] = 50
 		self.companyLogoHomeButton["command"] = self.__goHome
+		self.logOutButton["command"] = self.logout
 		
 		self.companyLogoHomeButton["text"] = "logo"
 		self.titleLabel["text"] ="Invoice"
@@ -108,6 +109,11 @@ class Invoice(GenericScreen):
 		self.balanceDueLabel.pack()
 		self.statusLabel.pack()
 	
+	#Logsout the user and takes them to the login screen
+	def logout(self) -> None:
+		self.application.setLoggedInUser(None)
+		self.application.setLoggedInStaff(None)
+		self.application.switchForm(screens.Login)
 
 	#Functionality for home button to switch form
 	def __goHome(self):

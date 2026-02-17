@@ -55,6 +55,7 @@ class Search(GenericScreen):
 		
 		self.companyLogoHomeButton["command"] = self.goHome
 		self.SearchButton["command"] = self.search
+		self.logOutButton["command"] = self.logout
 
 
 		self.topBarFrame.pack()
@@ -74,6 +75,11 @@ class Search(GenericScreen):
 	
 	def goHome(self) -> None:
 		self.application.switchForm(screens.Home)
+
+	def logout(self) -> None:
+		self.application.setLoggedInUser(None)
+		self.application.setLoggedInStaff(None)
+		self.application.switchForm(screens.Login)
 	
 
 	def search(self) -> None:
@@ -85,7 +91,7 @@ class Search(GenericScreen):
 		self.canvas: tk.Canvas = tk.Canvas(self.mainContectFrame)
 		self.searchResultsLabelFrame = tk.LabelFrame(self.canvas)
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
-		
+
 		self.mainContectFrame.update()
 		
 		if searchCriteria == "":

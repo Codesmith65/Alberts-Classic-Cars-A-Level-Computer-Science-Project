@@ -70,7 +70,7 @@ class SearchPopup:
 		self.scrollBar: tk.Scrollbar = tk.Scrollbar(self.mainContectFrame, orient=tk.VERTICAL, command=self.canvas.yview)
 
 		self.mainContectFrame.update()
-		
+
 		if searchCriteria == "":
 			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		
@@ -107,7 +107,7 @@ class SearchPopup:
 			entryAttributes: list[str] = entry.getAtributes()
 			
 			for attribute in entryAttributes:
-				if criteria in str(attribute).lower():
+				if criteria.lower() in str(attribute).lower():
 					results.append((str(attribute), entryAttributes))
 					continue
 		

@@ -131,7 +131,7 @@ class Search(GenericScreen):
 			entryAttributes: list[str] = entry.getAtributes()
 			
 			for attribute in entryAttributes:
-				if criteria in str(attribute):
+				if criteria.lower() in str(attribute).lower():
 					results.append((str(attribute), entryAttributes))
 					continue
 		

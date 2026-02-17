@@ -48,8 +48,8 @@ class Home(GenericScreen):
 
 		self.searchButton.grid(row=0, column=0)
 		self.bookingButton.grid(row=0, column=1)
-		self.taskButton.grid(row=0, column=2)
-		self.accountsButton.grid(row=1, column=1)
+		#self.taskButton.grid(row=0, column=2)
+		#self.accountsButton.grid(row=1, column=1)
 
 		self.companyLogoLabel.pack()
 		self.titleLable.pack()

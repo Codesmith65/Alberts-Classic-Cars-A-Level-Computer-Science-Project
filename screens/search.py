@@ -13,6 +13,8 @@ class Search(GenericScreen):
 		super().__init__(application)
 		
 		self.mode: int = mode
+		if "mode" in application.crossScreenDataStore and type(application.crossScreenDataStore["mode"]) is int:
+			self.mdoe = application.crossScreenDataStore["mode"]
 
 		self.root.title("Albert's Classic Car - Search")
 

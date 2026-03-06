@@ -3,6 +3,8 @@ from re import S
 import tkinter as tk
 from tkinter import messagebox
 
+import popups
+
 
 class SearchPopup:
 	def __init__(self, mode: int = 0) -> None:
@@ -80,7 +82,7 @@ class SearchPopup:
 				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
 			foundStaff: list[tuple[str, list]] = self.__linearSearchFile("data/staff.pkl", searchCriteria)
 			for staff in foundStaff:
-				self.__createSearchResult("Staff", user[0], dict(zip(["id", "username"], user[1])))
+				self.__createSearchResult("Staff", user[0], dict(zip(["id", "user id", "first name", "last name", "address", ""], user[1])))
 		
 		if self.mode == 0 or self.mode == 2:
 			foundClients: list[tuple[str, list]] = self.__linearSearchFile("data/clients.pkl", searchCriteria)
@@ -90,7 +92,7 @@ class SearchPopup:
 		if self.mode == 0 or self.mode == 3:
 			foundBookings: list[tuple[str, list]] = self.__linearSearchFile("data/bookings.pkl", searchCriteria)
 			for booking in foundBookings:
-				self.__createSearchResult("Booking", booking[0], dict(zip(["id", "staff id", "client id", "vehicle id", "pick up date", "pickup location id", "drop off date", "dropoff location id", "status"], booking[1])))
+				self.__createSearchResult("Booking", booking[0], dict(zip(["id", "staff id", "client id", "vehicle id", "pickup date", "pickup location id", "dropoff date", "dropoff location id", "status"], booking[1])))
 		
 		if self.mode == 0 or self.mode == 4:
 			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
@@ -100,12 +102,12 @@ class SearchPopup:
 		if self.mode == 0 or self.mode == 5:
 			foundLocation: list[tuple[str, list]] = self.__linearSearchFile("data/locations.pkl", searchCriteria)
 			for location in foundLocation:
-				self.__createSearchResult("Location", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				self.__createSearchResult("Location", location[0], dict(zip(["id", "location name"], location[1])))
 		
 		if self.mode == 0 or self.mode == 6:
 			foundTasks: list[tuple[str, list]] = self.__linearSearchFile("data/tasks.pkl", searchCriteria)
 			for task in foundTasks:
-				self.__createSearchResult("Task", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				self.__createSearchResult("Task", task[0], dict(zip(["id", "task name", "task description", "completed", "parent task", "staff id"], task[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
@@ -142,7 +144,7 @@ class SearchPopup:
 		searchResultFrame = tk.Frame(self.searchResultsFrame)
 		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
 		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
-		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
+		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda title=title, infoText=infoText: popups.MessageBoxInfoEditButton(title, infoText, print))
 		selectButton: tk.Button = tk.Button(searchResultFrame, text="Select", command=lambda frame=searchResultFrame, data=data: self.__select(frame, data))						
 		
 		titleLable.grid(row=0,column=0)

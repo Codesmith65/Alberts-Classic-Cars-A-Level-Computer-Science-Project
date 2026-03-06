@@ -21,7 +21,7 @@ class ClientEdit:
                 self.currentDataType = dataType
                 break
             
-            self.userIndex += 1
+            self.dataTypeIndex += 1
         
         # Shows an error if the data type cannot be found
         if self.currentDataType == None:

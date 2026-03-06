@@ -7,6 +7,7 @@ class MessageBoxInfoEditButton:
         self.topLevel: tkinter.Toplevel = tkinter.Toplevel()
 
         self.topLevel.title(title)
+        self.topLevel.resizable(False, False)
         
         self.contentFrame: tkinter.Frame = tkinter.Frame(self.topLevel, padx=20, pady=10, background="white")
         self.buttonsFrame: tkinter.Frame = tkinter.Frame(self.topLevel)

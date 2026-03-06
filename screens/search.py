@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 import screens
+import popups
 from .generic import GenericScreen
 from application import Application
 
@@ -125,12 +126,12 @@ class Search(GenericScreen):
 		if self.mode == 0 or self.mode == 5:
 			foundLocation: list[tuple[str, list]] = self.__linearSearchFile("data/locations.pkl", searchCriteria)
 			for location in foundLocation:
-				self.__createSearchResult("Location", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				self.__createSearchResult("Location", location[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], location[1])))
 		
 		if self.mode == 0 or self.mode == 6:
 			foundTasks: list[tuple[str, list]] = self.__linearSearchFile("data/tasks.pkl", searchCriteria)
 			for task in foundTasks:
-				self.__createSearchResult("Task", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				self.__createSearchResult("Task", task[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], task[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
@@ -168,9 +169,25 @@ class Search(GenericScreen):
 		searchResultFrame = tk.Frame(self.searchResultsLabelFrame)
 		titleLable: tk.Label = tk.Label(searchResultFrame, text=title)
 		subTitleLable: tk.Label = tk.Label(searchResultFrame, text=subTitle)
-		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: messagebox.showinfo(title, infoText))
+		infoButton: tk.Button = tk.Button(searchResultFrame, image=self.infoIcon, command=lambda infoText=infoText: popups.MessageBoxInfoEditButton(title, infoText, lambda dataType=title, data=data: self.__openEdit(dataType, data)))
 		
 		titleLable.grid(row=0,column=0)
 		subTitleLable.grid(row=1, column=0)
 		infoButton.grid(row=1,column=1)
 		searchResultFrame.pack()
+	
+	def __openEdit(self, dataType: str, data: dict):
+		if dataType.lower() == "user":
+			pass
+		elif dataType.lower() == "staff":
+			pass
+		elif dataType.lower() == "client":
+			popups.ClientEdit(data)
+		elif dataType.lower() == "booking":
+			popups.BookingEdit(data)
+		elif dataType.lower() == "vehicle":
+			pass
+		elif dataType.lower() == "location":
+			pass
+		elif dataType.lower() == "task":
+			pass

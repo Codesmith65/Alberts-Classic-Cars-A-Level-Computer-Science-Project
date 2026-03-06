@@ -20,8 +20,8 @@ class MessageBoxInfoEditButton:
         self.icon.grid(row=0, column=0, padx=2, pady=2, sticky="n")
         self.infoLable.grid(row=0, column=1)
         
-        self.editButton.grid(row=0, column=0)
-        self.okButton.grid(row=0, column=1)
+        self.editButton.grid(row=0, column=0, padx=2)
+        self.okButton.grid(row=0, column=1, padx=2)
         
         self.contentFrame.pack()
         self.buttonsFrame.pack(expand=True, anchor="e", padx=15, pady=10)

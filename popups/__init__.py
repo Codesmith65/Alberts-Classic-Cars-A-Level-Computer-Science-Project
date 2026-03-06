@@ -1,2 +1,4 @@
 from .search import SearchPopup
 from .messageBoxInfoEditButton import MessageBoxInfoEditButton
+
+from .clientEdit import ClientEdit

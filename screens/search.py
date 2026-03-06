@@ -97,22 +97,38 @@ class Search(GenericScreen):
 		if searchCriteria == "":
 			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		
-		if self.mode == 0 or self.mode == 1:
+		if self.mode == 1:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
 				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
-		if self.mode == 0 or self.mode == 3:
+			foundStaff: list[tuple[str, list]] = self.__linearSearchFile("data/staff.pkl", searchCriteria)
+			for staff in foundStaff:
+				self.__createSearchResult("Staff", user[0], dict(zip(["id", "username"], user[1])))
+		
+		if self.mode == 0 or self.mode == 2:
 			foundClients: list[tuple[str, list]] = self.__linearSearchFile("data/clients.pkl", searchCriteria)
 			for client in foundClients:
 				self.__createSearchResult("Client", client[0], dict(zip(["id", "first name", "last name", "email", "address", "phone number"], client[1])))
-		if self.mode == 0 or self.mode == 4:
+		
+		if self.mode == 0 or self.mode == 3:
 			foundBookings: list[tuple[str, list]] = self.__linearSearchFile("data/bookings.pkl", searchCriteria)
 			for booking in foundBookings:
 				self.__createSearchResult("Booking", booking[0], dict(zip(["id", "staff id", "client id", "vehicle id", "pick up date", "pickup location id", "drop off date", "dropoff location id", "status"], booking[1])))
-		if self.mode == 0 or self.mode == 5:
+		
+		if self.mode == 0 or self.mode == 4:
 			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
 			for vehicle in foundVehicles:
 				self.__createSearchResult("Vehicle", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+		
+		if self.mode == 0 or self.mode == 5:
+			foundLocation: list[tuple[str, list]] = self.__linearSearchFile("data/locations.pkl", searchCriteria)
+			for location in foundLocation:
+				self.__createSearchResult("Location", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+		
+		if self.mode == 0 or self.mode == 6:
+			foundTasks: list[tuple[str, list]] = self.__linearSearchFile("data/tasks.pkl", searchCriteria)
+			for task in foundTasks:
+				self.__createSearchResult("Task", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))

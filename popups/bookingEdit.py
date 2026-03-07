@@ -112,7 +112,9 @@ class BookingEdit:
         self.currentDataType.staffID = self.staffIDStrVar.get()
         self.currentDataType.clientID = self.clientIDStrVar.get()
         self.currentDataType.vehicleID = self.vehicleIDStrVar.get()
+        self.currentDataType.pickupDate = datetime.datetime.strptime(self.pickUpDateStrVar.get(), "%d/%m/%Y").timestamp()
         self.currentDataType.pickupLocation = self.pickUpLocationStrVar.get()
+        self.currentDataType.dropoffDate = datetime.datetime.strptime(self.dropOffDateStrVar.get(), "%d/%m/%Y").timestamp()
         self.currentDataType.dropoffLocation = self.dropOffLocationStrVar.get()
         self.currentDataType.status = self.statusDropDown.get()
         ## -- Custome per data type between -- ##

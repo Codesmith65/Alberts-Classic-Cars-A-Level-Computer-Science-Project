@@ -1,14 +1,35 @@
 import tkinter as tk
-from tkinter import NO, ttk
+from tkinter import messagebox, ttk
 from .generic import GenericScreen
 from application import Application
 import screens
+import pickle
+
+from dataTypes.user import User
+
 
 class Home(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 
 		self.root.title("Albert's Classic Car - Home")
+
+		# Opens user file and gets all users
+		with open("data/users.pkl", "br") as userFile:
+			users: list[User] = pickle.load(userFile)
+		
+		# Searches through users to find logged in user
+		currentUser: User|None = None
+		for user in users:
+			if user.userID == self.application.logedInUser:
+				currentUser = user
+				break
+		
+		# Checks if the user logged in exists, should never run
+		if currentUser is None:
+			messagebox.showerror("Logged in user", "The user logged in is not found in the user file, logging out")
+			application.switchForm(screens.Login)
+			return
 
 		self.topBarFrame = tk.Frame(self.root)
 		self.mainContectFrame = tk.Frame(self.root)
@@ -22,8 +43,8 @@ class Home(GenericScreen):
 		self.searchButton = tk.Button(self.navigationButtonsFrame)
 		self.bookingButton = tk.Button(self.navigationButtonsFrame)
 		self.taskButton = tk.Button(self.navigationButtonsFrame)
-		#TODO check if account should see this
-		self.accountsButton = tk.Button(self.navigationButtonsFrame)
+		if currentUser.admin:
+			self.accountsButton = tk.Button(self.navigationButtonsFrame, text="Accounts")
 
 
 		self.searchButton["text"] = "Search"
@@ -51,8 +72,9 @@ class Home(GenericScreen):
 
 		self.searchButton.grid(row=0, column=0)
 		self.bookingButton.grid(row=0, column=1)
-		#self.taskButton.grid(row=0, column=2)
-		#self.accountsButton.grid(row=1, column=1)
+		self.taskButton.grid(row=0, column=2)
+		if currentUser.admin:
+			self.accountsButton.grid(row=1, column=1)
 
 		self.companyLogoHomeButton.pack()
 		self.titleLable.pack()

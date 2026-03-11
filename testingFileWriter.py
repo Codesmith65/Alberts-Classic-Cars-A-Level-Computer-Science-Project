@@ -16,7 +16,7 @@ import uuid
 # Creating users and staff
 users = []
 staffs = []
-adminUser = User("admin", "admin", userID=uuid.UUID("d8eec26b-91c3-4144-b2f7-97ec1f20d064"))
+adminUser = User("admin", "admin", userID=uuid.UUID("d8eec26b-91c3-4144-b2f7-97ec1f20d064"), admin=True)
 adminStaff = Staff(adminUser.userID, "admin", "admin", "admin address", "012345678", staffID=uuid.UUID("e22e4c85-589f-4370-b052-599cb3dabbc9"))
 users.append(adminUser)
 staffs.append(adminStaff)

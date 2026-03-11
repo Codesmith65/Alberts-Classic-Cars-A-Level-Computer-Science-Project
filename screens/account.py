@@ -135,6 +135,8 @@ class Account(GenericScreen):
 
 		with open("data/users.pkl", "bw") as f:
 			pickle.dump(users, f)
+		
+		messagebox.showinfo("Password rest", f"The password of account: {user.username}\nHas been reset to\n\n{newPassword}\n\nMake a note to log into the system")
 
 	def addUserAccount(self):
 		username = self.newAccountUsernameEntry.get()

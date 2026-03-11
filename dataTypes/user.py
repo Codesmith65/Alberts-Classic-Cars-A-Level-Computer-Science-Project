@@ -7,6 +7,7 @@ class User:
 	username: str
 	password: str
 	_: KW_ONLY
+	admin: bool = False
 	userID: UUID|None = None
 	
 	def __post_init__(self):

@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from .generic import GenericScreen
 from application import Application
-import screens
+import screens, popups
 import random
 import string
 import pickle
@@ -16,6 +16,8 @@ class Account(GenericScreen):
 		super().__init__(application)
 
 		self.root.title("Albert's Classic Car - Accounts")
+
+		self.infoIcon = tk.PhotoImage(file="assets/info.png")
 
 		self.topBarFrame = tk.Frame(self.root)
 		self.mainContectFrame = tk.Frame(self.root)
@@ -58,18 +60,20 @@ class Account(GenericScreen):
 		
 
 		self.topBarFrame.pack()
-		self.mainContectFrame.pack()
+		#fill="both", expand=1, anchor="center")
 
 		self.companyLogoHomeButton.pack()
 		self.titleLabel.pack()
 		self.logOutButton.pack()
 		
-		self.newAccountLabelFrame.grid(row=0, column=0)
+		self.newAccountLabelFrame.pack(side="left", expand=1)
 		self.newAccountUsernameLabel.grid(row=0, column=0)
 		self.newAccountUsernameEntry.grid(row=0, column=1)
 		self.newAccountCreateButton.grid(row=1, column=0, columnspan=2)
 		
-		self.accountsLabelFrame.grid(row=0, column=1)
+		self.accountsLabelFrame.pack(side="right", fill="both", expand=1)
+
+		self.mainContectFrame.pack(fill="both", expand=1)
 	
 	def goHome(self):
 		self.application.switchForm(screens.Home)
@@ -92,19 +96,32 @@ class Account(GenericScreen):
 		with open("data/users.pkl", "br") as userFile:
 			users: list[User] = pickle.load(userFile)
 		
+		canvas: tk.Canvas = tk.Canvas(self.accountsLabelFrame)
+		accountsScrollFrame = tk.Frame(canvas)
+		scrollBar: tk.Scrollbar = tk.Scrollbar(self.accountsLabelFrame, orient=tk.VERTICAL, command=canvas.yview)
+		
 		index = 0
 		for user in users:
 			staffMember = staff[userIdToStaffIndex[user.userID]]
-			userFrame = tk.Frame(self.accountsLabelFrame)
+			userFrame = tk.Frame(accountsScrollFrame)
+
+			infoText = f"username: {user.username}\nname: {staffMember.firstName} {staffMember.lastName}\n" \
+			f"userID: {user.userID}\nstaffID: {staffMember.staffID}"
+
 			tk.Label(userFrame, text=f"username: {user.username}").grid(row=0, column=0)
 			tk.Label(userFrame, text=f"name: {staffMember.firstName} {staffMember.lastName}").grid(row=0, column=1)
-			tk.Label(userFrame, text=f"userID: {user.userID}").grid(row=0, column=2)
-			tk.Label(userFrame, text=f"staffID: {staffMember.staffID}").grid(row=0, column=3)
-			ttk.Button(userFrame, text="Reset password", command=lambda user=user, index=index: self.resetPassword(user, index)).grid(row=0, column=4)
+			tk.Button(userFrame, image=self.infoIcon, command=lambda: popups.MessageBoxInfoEditButton("Staff member", infoText, print)).grid(row=0, column=2)
+			ttk.Button(userFrame, text="Reset password", command=lambda user=user, index=index: self.resetPassword(user, index)).grid(row=0, column=3)
 
 			userFrame.pack(anchor="w")
 
 			index += 1
+		
+		canvas.configure(yscrollcommand=scrollBar.set)
+		canvas.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+		canvas.create_window((0,0), window=accountsScrollFrame, anchor="nw")
+		canvas.pack(fill="both", expand=1, side="left")
+		scrollBar.pack(side="right", fill="y")
 		
 	def resetPassword(self, user: User, index: int):
 		newPassword = self.randomPassword()

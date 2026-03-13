@@ -40,7 +40,7 @@ class Home(GenericScreen):
 		self.titleLable = tk.Label(self.topBarFrame)
 		self.logOutButton = ttk.Button(self.topBarFrame)
 
-		self.searchButton = ttk.Button(self.navigationButtonsFrame)
+		self.searchButton = tk.Button(self.navigationButtonsFrame)
 		self.bookingButton = ttk.Button(self.navigationButtonsFrame)
 		self.taskButton = ttk.Button(self.navigationButtonsFrame)
 		if currentUser.admin:
@@ -48,6 +48,9 @@ class Home(GenericScreen):
 
 
 		self.searchButton["text"] = "Search"
+		self.searchButton["width"] = 10
+		self.searchButton["height"] = 10
+		
 		self.bookingButton["text"] = "Create Booking"
 		self.taskButton["text"] = "Tasks"
 

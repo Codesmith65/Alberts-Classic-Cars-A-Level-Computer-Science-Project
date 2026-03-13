@@ -10,6 +10,7 @@ class Vehicle:
 	registration: str
 	vin: str
 	_: KW_ONLY
+	costPerDay: int = 20
 	vehicleID: UUID|None = None
 	
 	def __post_init__(self):

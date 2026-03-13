@@ -100,42 +100,77 @@ class Search(GenericScreen):
 		if searchCriteria == "":
 			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		
+		searchCap = 800
+		resultNumber = 0
+		
+		
 		if self.mode == 1:
 			foundUsers: list[tuple[str, list]] = self.__linearSearchFile("data/users.pkl", searchCriteria)
 			for user in foundUsers:
 				self.__createSearchResult("User", user[0], dict(zip(["id", "username"], user[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 			foundStaff: list[tuple[str, list]] = self.__linearSearchFile("data/staff.pkl", searchCriteria)
 			for staff in foundStaff:
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 				self.__createSearchResult("Staff", user[0], dict(zip(["id", "username"], user[1])))
+				resultNumber += 1
+				
 		
-		if self.mode == 0 or self.mode == 2:
+		if (self.mode == 0 or self.mode == 2) and resultNumber < searchCap:
 			foundClients: list[tuple[str, list]] = self.__linearSearchFile("data/clients.pkl", searchCriteria)
 			for client in foundClients:
 				self.__createSearchResult("Client", client[0], dict(zip(["id", "first name", "last name", "email", "address", "phone number"], client[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 		
-		if self.mode == 0 or self.mode == 3:
+		if (self.mode == 0 or self.mode == 3) and resultNumber < searchCap:
 			foundBookings: list[tuple[str, list]] = self.__linearSearchFile("data/bookings.pkl", searchCriteria)
 			for booking in foundBookings:
 				self.__createSearchResult("Booking", booking[0], dict(zip(["id", "staff id", "client id", "vehicle id", "pick up date", "pickup location id", "drop off date", "dropoff location id", "status"], booking[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 		
-		if self.mode == 0 or self.mode == 4:
+		if (self.mode == 0 or self.mode == 4) and resultNumber < searchCap:
 			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
 			for vehicle in foundVehicles:
 				self.__createSearchResult("Vehicle", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 		
-		if self.mode == 0 or self.mode == 5:
+		if (self.mode == 0 or self.mode == 5) and resultNumber < searchCap:
 			foundLocation: list[tuple[str, list]] = self.__linearSearchFile("data/locations.pkl", searchCriteria)
 			for location in foundLocation:
 				self.__createSearchResult("Location", location[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], location[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
 		
-		if self.mode == 0 or self.mode == 6:
+		if (self.mode == 0 or self.mode == 6) and resultNumber < searchCap:
 			foundTasks: list[tuple[str, list]] = self.__linearSearchFile("data/tasks.pkl", searchCriteria)
 			for task in foundTasks:
 				self.__createSearchResult("Task", task[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], task[1])))
+				resultNumber += 1
+				if resultNumber > searchCap:
+					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
+					break
+		
+		print(resultNumber)
 		
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
-		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="nw")
+		self.canvas.create_window((0, 0), window=self.searchResultsLabelFrame, anchor="center")
 		self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 		self.scrollBar.pack(side=tk.RIGHT, fill=tk.Y)
 			

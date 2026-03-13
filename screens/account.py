@@ -104,7 +104,7 @@ class Account(GenericScreen):
 			userFrame = tk.Frame(accountsScrollFrame)
 
 			infoText = f"username: {user.username}\nname: {staffMember.firstName} {staffMember.lastName}\n" \
-			f"userID: {user.userID}\nstaffID: {staffMember.staffID}"
+			f"userID: {user.userID}\nstaffID: {staffMember.staffID}\nstaff address: {staffMember.address}\nstaff phone number: {staffMember.phoneNumber}"
 			
 			data = {"id": staffMember.staffID, "first name": staffMember.firstName, "last name": staffMember.lastName, "address": staffMember.address, "phone number": staffMember.phoneNumber, "username": user.username, "admin": user.admin}
 

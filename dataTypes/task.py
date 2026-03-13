@@ -10,6 +10,7 @@ class Task:
 	parentTask: UUID
 	staffID: UUID
 	_: KW_ONLY
+	importance: int = 3
 	taskID: UUID|None = None
 	
 	def __post_init__(self):

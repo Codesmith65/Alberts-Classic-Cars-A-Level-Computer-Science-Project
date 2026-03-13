@@ -216,12 +216,12 @@ class Booking(GenericScreen):
 	
 	#Shows a search screen for a cliet
 	def __clientSearch(self) -> None:
-		searchScreen = popups.SearchPopup(3)
+		searchScreen = popups.SearchPopup(2)
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.clientEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
 	#Shows a search window for a vehicle
 	def __vehicleSearch(self) -> None:
-		searchScreen = popups.SearchPopup(5)
+		searchScreen = popups.SearchPopup(4)
 		searchScreen.topLevel.protocol("WM_DELETE_WINDOW", lambda popup=searchScreen, stringVar=self.vehicleEntryStringVar: self.__clsoeSerachPopup(popup, stringVar))
 	
 	#Closes the popup search screen an sets the selected value to teh field

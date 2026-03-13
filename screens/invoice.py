@@ -39,6 +39,7 @@ class Invoice(GenericScreen):
 		if not "BookingID" in self.application.crossScreenDataStore:
 			self.BookingIDLabel["text"] = "BookingID: No booking inputed"
 			messagebox.showerror("Booking ID", "No booking ID has been passed to this form, try going back and reloading form, if persists contact administartor")
+			return
 		
 		self.bookingID: UUID = self.application.crossScreenDataStore["BookingID"]
 		self.booking: Booking|None = None

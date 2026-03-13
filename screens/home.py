@@ -31,20 +31,20 @@ class Home(GenericScreen):
 			application.switchForm(screens.Login)
 			return
 
-		self.topBarFrame = tk.Frame(self.root)
+		self.topBarFrame = tk.Frame(self.root, background="red")
 		self.mainContectFrame = tk.Frame(self.root)
 		self.navigationButtonsFrame = tk.Frame(self.mainContectFrame)
 
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
 		self.companyLogoHomeButton = tk.Label(self.topBarFrame)
 		self.titleLable = tk.Label(self.topBarFrame)
-		self.logOutButton = tk.Button(self.topBarFrame)
+		self.logOutButton = ttk.Button(self.topBarFrame)
 
-		self.searchButton = tk.Button(self.navigationButtonsFrame)
-		self.bookingButton = tk.Button(self.navigationButtonsFrame)
-		self.taskButton = tk.Button(self.navigationButtonsFrame)
+		self.searchButton = ttk.Button(self.navigationButtonsFrame)
+		self.bookingButton = ttk.Button(self.navigationButtonsFrame)
+		self.taskButton = ttk.Button(self.navigationButtonsFrame)
 		if currentUser.admin:
-			self.accountsButton = tk.Button(self.navigationButtonsFrame, text="Accounts", command=self.openAccounts)
+			self.accountsButton = ttk.Button(self.navigationButtonsFrame, text="Accounts", command=self.openAccounts)
 
 
 		self.searchButton["text"] = "Search"
@@ -52,11 +52,11 @@ class Home(GenericScreen):
 		self.taskButton["text"] = "Tasks"
 
 		self.companyLogoHomeButton["image"] = self.companyLogo
-		self.companyLogoHomeButton["width"] = 50
-		self.companyLogoHomeButton["height"] = 50
+		self.companyLogoHomeButton["width"] = 100
+		self.companyLogoHomeButton["height"] = 100
 
 		self.titleLable["text"] ="Home"
-		self.titleLable["font"] = ("Helvetica", 40)
+		self.titleLable["font"] = ("Helvetica", 40, "bold")
 		self.logOutButton["text"] = "Logout"
 		
 		self.logOutButton["command"] = self.logout
@@ -65,7 +65,7 @@ class Home(GenericScreen):
 		self.taskButton["command"] = self.openTasks
 
 
-		self.topBarFrame.pack()
+		self.topBarFrame.pack(fill="x")
 		self.mainContectFrame.pack()
 		self.navigationButtonsFrame.pack()
 
@@ -75,9 +75,13 @@ class Home(GenericScreen):
 		if currentUser.admin:
 			self.accountsButton.grid(row=1, column=1)
 
-		self.companyLogoHomeButton.pack()
-		self.titleLable.pack()
-		self.logOutButton.pack()
+		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
+		self.titleLable.grid(row=0, column=1)
+		self.logOutButton.grid(row=0, column=2, sticky="e")
+		
+		self.topBarFrame.columnconfigure(0, weight=1)
+		self.topBarFrame.columnconfigure(1, weight=1)
+		self.topBarFrame.columnconfigure(2, weight=1)
 	
 	def logout(self) -> None:
 		self.application.setLoggedInUser(None)

@@ -44,7 +44,7 @@ class Home(GenericScreen):
 		self.bookingButton = tk.Button(self.navigationButtonsFrame)
 		self.taskButton = tk.Button(self.navigationButtonsFrame)
 		if currentUser.admin:
-			self.accountsButton = tk.Button(self.navigationButtonsFrame, text="Accounts")
+			self.accountsButton = tk.Button(self.navigationButtonsFrame, text="Accounts", command=self.openAccounts)
 
 
 		self.searchButton["text"] = "Search"
@@ -63,7 +63,6 @@ class Home(GenericScreen):
 		self.searchButton["command"] = self.openSearch
 		self.bookingButton["command"] = self.openBooking
 		self.taskButton["command"] = self.openTasks
-		self.accountsButton["command"] = self.openAccounts
 
 
 		self.topBarFrame.pack()

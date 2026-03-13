@@ -44,8 +44,9 @@ for x in range(5):
 
 # Creating tasks
 tasks = [Task(f"TestTask{x}", f"TestTaskDescription{x}", False, uuid.uuid4(), uuid.UUID("d8eec26b-91c3-4144-b2f7-97ec1f20d064"))]
-for x in range(20):
-    tasks.append(Task(f"TestTask{x}", f"TestTaskDescription{x}", False, tasks[-1].taskID, staffs[x].staffID))
+for y in range(20):
+    for x in range(20):
+        tasks.append(Task(f"TestTask{x}", f"TestTaskDescription{x}", False, tasks[-1].taskID, staffs[x].staffID))
 
 
 # Saving data

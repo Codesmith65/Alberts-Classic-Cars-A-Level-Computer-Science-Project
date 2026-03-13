@@ -58,9 +58,7 @@ class Account(GenericScreen):
 		self.newAccountCreateButton["text"] = "Create Account"
 		self.newAccountCreateButton["command"] = self.addUserAccount
 		
-
 		self.topBarFrame.pack()
-		#fill="both", expand=1, anchor="center")
 
 		self.companyLogoHomeButton.pack()
 		self.titleLabel.pack()
@@ -107,11 +105,23 @@ class Account(GenericScreen):
 
 			infoText = f"username: {user.username}\nname: {staffMember.firstName} {staffMember.lastName}\n" \
 			f"userID: {user.userID}\nstaffID: {staffMember.staffID}"
+			
+			data = {"id": staffMember.staffID, "first name": staffMember.firstName, "last name": staffMember.lastName, "address": staffMember.address, "phone number": staffMember.phoneNumber, "username": user.username, "admin": user.admin}
 
-			tk.Label(userFrame, text=f"username: {user.username}").grid(row=0, column=0)
-			tk.Label(userFrame, text=f"name: {staffMember.firstName} {staffMember.lastName}").grid(row=0, column=1)
-			tk.Button(userFrame, image=self.infoIcon, command=lambda: popups.MessageBoxInfoEditButton("Staff member", infoText, print)).grid(row=0, column=2)
-			ttk.Button(userFrame, text="Reset password", command=lambda user=user, index=index: self.resetPassword(user, index)).grid(row=0, column=3)
+			usernameLabel = tk.Label(userFrame, text=f"username: {user.username}")			
+			nameLaberl = tk.Label(userFrame, text=f"name: {staffMember.firstName} {staffMember.lastName}")
+			infoButton = tk.Button(userFrame, image=self.infoIcon, command=lambda infoText=infoText, data=data: popups.MessageBoxInfoEditButton("Staff member", infoText, lambda data=data: popups.StaffAndUserEdit(data)))
+			resetButton = ttk.Button(userFrame, text="Reset password", command=lambda user=user, index=index: self.resetPassword(user, index))
+
+			usernameLabel.bind("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/60)), "units"))
+			nameLaberl.bind("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/60)), "units"))
+			infoButton.bind("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/60)), "units"))
+			resetButton.bind("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/60)), "units"))
+			
+			usernameLabel.grid(row=0, column=0)
+			nameLaberl.grid(row=0, column=1)
+			infoButton.grid(row=0, column=2)
+			resetButton.grid(row=0, column=3)
 
 			userFrame.pack(anchor="w")
 
@@ -119,6 +129,7 @@ class Account(GenericScreen):
 		
 		canvas.configure(yscrollcommand=scrollBar.set)
 		canvas.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+		canvas.bind("<MouseWheel>", lambda event: canvas.yview_scroll(int(-1*(event.delta/60)), "units"))
 		canvas.create_window((0,0), window=accountsScrollFrame, anchor="nw")
 		canvas.pack(fill="both", expand=1, side="left")
 		scrollBar.pack(side="right", fill="y")

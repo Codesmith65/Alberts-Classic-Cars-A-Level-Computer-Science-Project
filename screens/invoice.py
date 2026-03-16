@@ -25,7 +25,7 @@ class Invoice(GenericScreen):
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
 		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
 		self.titleLabel = tk.Label(self.topBarFrame)
-		self.logOutButton = tk.Button(self.topBarFrame)
+		self.logOutButton = ttk.Button(self.topBarFrame)
 		
 		self.generalLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="General")
 		self.vehicleLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Vehicle")
@@ -141,9 +141,13 @@ class Invoice(GenericScreen):
 		self.topBarFrame.pack(fill="x")
 		self.mainContectFrame.pack(expand=1)
 
-		self.companyLogoHomeButton.pack(side="left", anchor="w")
-		self.logOutButton.pack(side="right", anchor="e")
-		self.titleLabel.pack(anchor="center")
+		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
+		self.titleLabel.grid(row=0, column=1)
+		self.logOutButton.grid(row=0, column=2, sticky="e", padx=5)
+
+		self.topBarFrame.columnconfigure(0, weight=1)
+		self.topBarFrame.columnconfigure(1, weight=1)
+		self.topBarFrame.columnconfigure(2, weight=1)
 		
 		self.generalLabelFrame.grid(row=0, column=0, sticky="w", padx=50, pady=10)
 		self.vehicleLabelFrame.grid(row=1, column=0, sticky="w", padx=50, pady=10)

@@ -80,7 +80,7 @@ class Home(GenericScreen):
 
 		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
 		self.titleLable.grid(row=0, column=1)
-		self.logOutButton.grid(row=0, column=2, sticky="e")
+		self.logOutButton.grid(row=0, column=2, sticky="e", padx=5)
 		
 		self.topBarFrame.columnconfigure(0, weight=1)
 		self.topBarFrame.columnconfigure(1, weight=1)

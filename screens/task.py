@@ -36,8 +36,8 @@ class Task(GenericScreen):
 		self.companyLogoHomeButton["image"] = self.companyLogo
 		self.companyLogoHomeButton["relief"] = "flat"
 		self.companyLogoHomeButton["borderwidth"] = 0
-		self.companyLogoHomeButton["width"] = 50
-		self.companyLogoHomeButton["height"] = 50
+		self.companyLogoHomeButton["width"] = 100
+		self.companyLogoHomeButton["height"] = 100
 		self.companyLogoHomeButton["command"] = self.goHome
 		
 		self.saveButton["text"] = "Save"
@@ -58,9 +58,13 @@ class Task(GenericScreen):
 		self.topBarFrame.pack(fill="both")
 		self.mainContectFrame.pack(expand=1, fill="both")
 
-		self.companyLogoHomeButton.pack(side="left", anchor="nw")
-		self.titleLabel.pack(side="top")
-		self.logOutButton.pack(anchor="ne", after=self.titleLabel)
+		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
+		self.titleLabel.grid(row=0, column=1)
+		self.logOutButton.grid(row=0, column=2, sticky="e", padx=5)
+
+		self.topBarFrame.columnconfigure(0, weight=1)
+		self.topBarFrame.columnconfigure(1, weight=1)
+		self.topBarFrame.columnconfigure(2, weight=1)
 		
 		self.urgentLabelFrame.grid(row=0, column=0)
 		self.importantLabelFrame.grid(row=0, column=1)

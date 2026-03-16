@@ -29,7 +29,7 @@ class Booking(GenericScreen):
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
 		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
 		self.titleLable = tk.Label(self.topBarFrame)
-		self.logOutButton = tk.Button(self.topBarFrame)
+		self.logOutButton = ttk.Button(self.topBarFrame)
 		
 		self.clientLabel = tk.Label(self.mainContectFrame)
 		self.clientEntry = tk.Entry(self.mainContectFrame)
@@ -60,8 +60,8 @@ class Booking(GenericScreen):
 		self.companyLogoHomeButton["image"] = self.companyLogo
 		self.companyLogoHomeButton["relief"] = "flat"
 		self.companyLogoHomeButton["borderwidth"] = 0
-		self.companyLogoHomeButton["width"] = 50
-		self.companyLogoHomeButton["height"] = 50
+		self.companyLogoHomeButton["width"] = 100
+		self.companyLogoHomeButton["height"] = 100
 
 		self.companyLogoHomeButton["text"] = "logo"
 		self.titleLable["text"] ="Booking"
@@ -113,12 +113,16 @@ class Booking(GenericScreen):
 
 
 		#Placing the widgest on the GUI
-		self.topBarFrame.pack()
+		self.topBarFrame.pack(fill="x")
 		self.mainContectFrame.pack()
 
-		self.companyLogoHomeButton.pack()
-		self.titleLable.pack()
-		self.logOutButton.pack()
+		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
+		self.titleLable.grid(row=0, column=1)
+		self.logOutButton.grid(row=0, column=2, sticky="e", padx=5)
+
+		self.topBarFrame.columnconfigure(0, weight=1)
+		self.topBarFrame.columnconfigure(1, weight=1)
+		self.topBarFrame.columnconfigure(2, weight=1)
 		
 		self.clientLabel.pack()
 		self.clientEntry.pack()

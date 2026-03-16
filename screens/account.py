@@ -40,8 +40,8 @@ class Account(GenericScreen):
 		self.companyLogoHomeButton["image"] = self.companyLogo
 		self.companyLogoHomeButton["relief"] = "flat"
 		self.companyLogoHomeButton["borderwidth"] = 0
-		self.companyLogoHomeButton["width"] = 50
-		self.companyLogoHomeButton["height"] = 50
+		self.companyLogoHomeButton["width"] = 100
+		self.companyLogoHomeButton["height"] = 100
 		self.companyLogoHomeButton["command"] = self.goHome
 
 		self.titleLabel["text"] ="Accounts"
@@ -58,11 +58,15 @@ class Account(GenericScreen):
 		self.newAccountCreateButton["text"] = "Create Account"
 		self.newAccountCreateButton["command"] = self.addUserAccount
 		
-		self.topBarFrame.pack()
+		self.topBarFrame.pack(fill="x")
 
-		self.companyLogoHomeButton.pack()
-		self.titleLabel.pack()
-		self.logOutButton.pack()
+		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
+		self.titleLabel.grid(row=0, column=1)
+		self.logOutButton.grid(row=0, column=2, sticky="e", padx=5)
+
+		self.topBarFrame.columnconfigure(0, weight=1)
+		self.topBarFrame.columnconfigure(1, weight=1)
+		self.topBarFrame.columnconfigure(2, weight=1)
 		
 		self.newAccountLabelFrame.pack(side="left", expand=1)
 		self.newAccountUsernameLabel.grid(row=0, column=0)

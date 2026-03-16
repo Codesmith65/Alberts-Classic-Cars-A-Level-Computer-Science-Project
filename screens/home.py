@@ -69,7 +69,7 @@ class Home(GenericScreen):
 
 
 		self.topBarFrame.pack(fill="x")
-		self.mainContectFrame.pack()
+		self.mainContectFrame.pack(expand=1)
 		self.navigationButtonsFrame.pack()
 
 		self.searchButton.grid(row=0, column=0)

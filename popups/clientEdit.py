@@ -90,19 +90,6 @@ class ClientEdit:
         
         self.contentFrame.pack(fill="x")
         self.buttonsFrame.pack(expand=True, anchor="e", padx=15, pady=10)
-       
-    # Used to creae a new version of the data type to be edited
-    def __new(self):
-        with open(self.filePath, "br") as dataFile:
-            data: list[Client] = pickle.load(dataFile)
-            
-        newClient = Client("", "", "", "", "")
-        data.append(newClient)
-        
-        with open(self.filePath, "bw") as dataFile:
-            pickle.dump(data, dataFile)
-            
-        ClientEdit(dict(zip(["id", "first name", "last name", "email", "address", "phone number"], newClient.getAtributes())))
     
     # Used to save the data that was edited
     def __save(self):
@@ -128,12 +115,26 @@ class ClientEdit:
             
         self.topLevel.destroy()
     
+    # Used to creae a new version of the data type to be edited
+    def __new(self):
+        with open(self.filePath, "br") as dataFile:
+            data: list[Client] = pickle.load(dataFile)
+            
+        newClient = Client("", "", "", "", "")
+        data.append(newClient)
+        
+        with open(self.filePath, "bw") as dataFile:
+            pickle.dump(data, dataFile)
+            
+        ClientEdit(dict(zip(["id", "first name", "last name", "email", "address", "phone number"], newClient.getAtributes())))
+    
     def __delete(self):
         # Opens the data type file to retive data types
         with open(self.filePath, "rb") as dataTypeFile:
             dataTypes: list = pickle.load(dataTypeFile)
 
         dataTypes.pop(self.dataTypeIndex)
+        self.topLevel.destroy()
 
         # Saves it back to file and closes the window
         with open(self.filePath, "wb") as dataTypeFile:

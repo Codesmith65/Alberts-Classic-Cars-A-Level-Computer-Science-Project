@@ -8,26 +8,38 @@ from application import Application
 from dataTypes.user import User
 from dataTypes.staff import Staff
 
+import colourPallet as pallet
+
 
 class Login(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
+		
+		# Creates the styling for the screen for ttk widgets
+		style = ttk.Style()
+		style.configure("generic.TButton", background=pallet.bg)
+		style.configure("nav.TButton", background=pallet.bg2)
+		style.configure("nav.TEntry", background=pallet.bg2, highlightcolor=pallet.highlight)
+
 
 		self.root.title("Albert's Classic Car - Login")
 
-		self.leftFrame: tk.Frame = tk.Frame(self.root)
-		self.rightFrame: tk.Frame = tk.Frame(self.root)
-		self.loginFrame: tk.Frame = tk.Frame(self.rightFrame)
+		self.leftFrame: tk.Frame = tk.Frame(self.root, bg=pallet.bg)
+		self.rightFrame: tk.Frame = tk.Frame(self.root, bg=pallet.bg2)
+		self.loginFrame: tk.Frame = tk.Frame(self.rightFrame, bg=pallet.bg2)
+		
+		self.companyLogo = tk.PhotoImage(file="assets/logo-large.png")
+		self.companyLogoHomeLabel = tk.Label(self.leftFrame, bg=pallet.bg)
 
-		self.loginTitleLabel: tk.Label = tk.Label(self.loginFrame)
-		self.usernameEntry: tk.Entry = tk.Entry(self.loginFrame)
-		self.passwordEntry: tk.Entry = tk.Entry(self.loginFrame)
-		self.loginButton: tk.Button = tk.Button(self.loginFrame)
-		self.forgotPasswordLabel: tk.Label = tk.Label(self.loginFrame)
+		self.loginTitleLabel: tk.Label = tk.Label(self.loginFrame, bg=pallet.bg2)
+		self.usernameEntry: ttk.Entry = ttk.Entry(self.loginFrame, style="nav.TEntry")
+		self.passwordEntry: ttk.Entry = ttk.Entry(self.loginFrame, style="nav.TEntry")
+		self.loginButton: ttk.Button = ttk.Button(self.loginFrame, style="nav.TButton")
+		self.forgotPasswordLabel: tk.Label = tk.Label(self.loginFrame, bg=pallet.bg2)
 
 
 		self.loginTitleLabel["text"] = "Login"
-		self.loginTitleLabel["font"] = ("Helvetica", 40)
+		self.loginTitleLabel["font"] = ("Helvetica", 40, "bold")
 		self.loginButton["text"] = "Login"
 		self.forgotPasswordLabel["text"] = "Forgot password? Contact admin."
 		
@@ -35,15 +47,26 @@ class Login(GenericScreen):
 		
 		self.loginButton["command"] = self.login
 
+		self.companyLogoHomeLabel["image"] = self.companyLogo
+		self.companyLogoHomeLabel["width"] = 500
+		self.companyLogoHomeLabel["height"] = 500
 
-		self.rightFrame.pack()
-		self.loginFrame.pack()
 
-		self.loginTitleLabel.pack()
-		self.usernameEntry.pack()
-		self.passwordEntry.pack()
-		self.loginButton.pack()
-		self.forgotPasswordLabel.pack()
+		self.leftFrame.pack(fill="both", expand=1, side="left")
+		self.rightFrame.pack(fill="y", side="right")
+		self.loginFrame.grid(row=0, column=0, sticky="")
+		self.rightFrame.grid_rowconfigure(0, weight=1)
+		self.rightFrame.grid_columnconfigure(0, weight=1)
+		
+		self.companyLogoHomeLabel.grid(row=0, column=0)
+		self.leftFrame.grid_rowconfigure(0, weight=1)
+		self.leftFrame.grid_columnconfigure(0, weight=1)
+
+		self.loginTitleLabel.pack(padx=5, pady=20)
+		self.usernameEntry.pack(padx=5, pady=1)
+		self.passwordEntry.pack(padx=5, pady=1)
+		self.loginButton.pack(padx=5, pady=1)
+		self.forgotPasswordLabel.pack(padx=50, pady=1)
 	
 	def login(self) -> None:
 		username: str = self.usernameEntry.get()

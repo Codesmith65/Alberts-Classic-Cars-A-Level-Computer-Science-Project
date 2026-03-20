@@ -11,44 +11,55 @@ from dataTypes.vehicle import Vehicle
 import pickle
 import screens
 
+import colourPallet as pallet
+
 
 class Invoice(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
 
+		# Creates the styling for the screen for ttk widgets
+		style = ttk.Style()
+		style.configure("generic.TButton", background=pallet.bg)
+		style.configure("nav.TButton", background=pallet.bg2)
+		style.configure("generic.TEntry", background=pallet.bg, highlightcolor=pallet.highlight)
+		style.configure("generic.TCombobox", background=pallet.bg, highlightcolor=pallet.highlight)
+
 		#Creating wigets and setting window title
 		self.root.title("Albert's Classic Car - Invoice")
+		self.root.configure(bg=pallet.bg)
 
-		self.topBarFrame = tk.Frame(self.root)
-		self.mainContectFrame = tk.Frame(self.root)
+		# Create frames for UI
+		self.topBarFrame = tk.Frame(self.root, bg=pallet.bg2)
+		self.mainContectFrame = tk.Frame(self.root, bg=pallet.bg)
 
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
-		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
-		self.titleLabel = tk.Label(self.topBarFrame)
-		self.logOutButton = ttk.Button(self.topBarFrame)
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame, bg=pallet.bg2)
+		self.titleLabel = tk.Label(self.topBarFrame, bg=pallet.bg2)
+		self.logOutButton = ttk.Button(self.topBarFrame, style="nav.TButton")
 		
-		self.generalLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="General")
-		self.vehicleLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Vehicle")
-		self.pickupAndDropoffLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Pick up & Drop off")
-		self.costLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Cost")
+		self.generalLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="General", bg=pallet.bg)
+		self.vehicleLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Vehicle", bg=pallet.bg)
+		self.pickupAndDropoffLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Pick up & Drop off", bg=pallet.bg)
+		self.costLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, text="Cost", bg=pallet.bg)
 		
-		self.BookingIDLabel = tk.Label(self.generalLabelFrame, justify="left")
-		self.statusLabel = tk.Label(self.generalLabelFrame, justify="left")
+		self.BookingIDLabel = tk.Label(self.generalLabelFrame, justify="left", bg=pallet.bg)
+		self.statusLabel = tk.Label(self.generalLabelFrame, justify="left", bg=pallet.bg)
 		
-		self.pickUpLabel = tk.Label(self.pickupAndDropoffLabelFrame, justify="left")
-		self.dropOffLabel = tk.Label(self.pickupAndDropoffLabelFrame, justify="left")
+		self.pickUpLabel = tk.Label(self.pickupAndDropoffLabelFrame, justify="left", bg=pallet.bg)
+		self.dropOffLabel = tk.Label(self.pickupAndDropoffLabelFrame, justify="left", bg=pallet.bg)
 
-		self.vehicleIdLabel = tk.Label(self.vehicleLabelFrame, justify="left")
-		self.vehicleNameLabel = tk.Label(self.vehicleLabelFrame, justify="left")
-		self.vehicleColourLabel = tk.Label(self.vehicleLabelFrame, justify="left")
-		self.vehicleRegistrationLabel = tk.Label(self.vehicleLabelFrame, justify="left")
+		self.vehicleIdLabel = tk.Label(self.vehicleLabelFrame, justify="left", bg=pallet.bg)
+		self.vehicleNameLabel = tk.Label(self.vehicleLabelFrame, justify="left", bg=pallet.bg)
+		self.vehicleColourLabel = tk.Label(self.vehicleLabelFrame, justify="left", bg=pallet.bg)
+		self.vehicleRegistrationLabel = tk.Label(self.vehicleLabelFrame, justify="left", bg=pallet.bg)
 		
-		self.costPerDayLabel = tk.Label(self.costLabelFrame, justify="left")
-		self.totalCostLabel = tk.Label(self.costLabelFrame, justify="left")
-		self.depositeLabel = tk.Label(self.costLabelFrame, justify="left")
-		self.depositeDueLabel = tk.Label(self.costLabelFrame, justify="left")
-		self.balanceLabel = tk.Label(self.costLabelFrame, justify="left")
-		self.balanceDueLabel = tk.Label(self.costLabelFrame, justify="left")
+		self.costPerDayLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
+		self.totalCostLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
+		self.depositeLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
+		self.depositeDueLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
+		self.balanceLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
+		self.balanceDueLabel = tk.Label(self.costLabelFrame, justify="left", bg=pallet.bg)
 
 
 		#Checking weather a booking ID has been provided from previous screen
@@ -153,7 +164,7 @@ class Invoice(GenericScreen):
 		self.vehicleLabelFrame.grid(row=1, column=0, sticky="w", padx=50, pady=10)
 		self.pickupAndDropoffLabelFrame.grid(row=0, column=1, sticky="w", padx=50, pady=10)
 		self.costLabelFrame.grid(row=1, column=1, sticky="w", padx=50, pady=10)
-		
+	
 		self.BookingIDLabel.pack(anchor="w")
 		self.statusLabel.pack(anchor="w")
 		

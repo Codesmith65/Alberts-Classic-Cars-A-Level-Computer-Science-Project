@@ -10,29 +10,44 @@ from application import Application
 
 from dataTypes.task import Task as TaskDataType
 
+import colourPallet as pallet
+
 
 class Task(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
+		
+		# Creates the styling for the screen for ttk widgets
+		style = ttk.Style()
+		style.configure("generic.TButton", background=pallet.bg)
+		style.configure("nav.TButton", background=pallet.bg2)
+		style.configure("generic.TEntry", background=pallet.bg, highlightcolor=pallet.highlight)
+		style.configure("generic.TCombobox", background=pallet.bg, highlightcolor=pallet.highlight)
+		style.configure("generic.TCheckbutton", background=pallet.bg, highlightcolor=pallet.highlight)
 
+		# Sets teh window title
 		self.root.title("Albert's Classic Car - Task")
+		self.root.configure(bg=pallet.bg)
 
-		self.topBarFrame = tk.Frame(self.root)
-		self.mainContectFrame = tk.Frame(self.root)
+		# Creates the frames for the UI
+		self.topBarFrame = tk.Frame(self.root, bg=pallet.bg2)
+		self.mainContectFrame = tk.Frame(self.root, bg=pallet.bg)
 
+		# Created widgets for the UI
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
-		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
-		self.titleLabel = tk.Label(self.topBarFrame)
-		self.logOutButton = ttk.Button(self.topBarFrame)
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame, bg=pallet.bg2)
+		self.titleLabel = tk.Label(self.topBarFrame, bg=pallet.bg2)
+		self.logOutButton = ttk.Button(self.topBarFrame, style="nav.TButton")
 		
-		self.urgentLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0)
-		self.importantLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0)
-		self.soonLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0)
-		self.laterLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0)
+		self.urgentLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, bg=pallet.bg)
+		self.importantLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, bg=pallet.bg)
+		self.soonLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, bg=pallet.bg)
+		self.laterLabelFrame = tk.LabelFrame(self.mainContectFrame, border=0, bg=pallet.bg)
 		
-		self.saveButton = ttk.Button(self.mainContectFrame)
+		self.saveButton = ttk.Button(self.mainContectFrame, style="generic.TButton")
 		
 
+		# Configure the widgets for the UI
 		self.companyLogoHomeButton["image"] = self.companyLogo
 		self.companyLogoHomeButton["relief"] = "flat"
 		self.companyLogoHomeButton["borderwidth"] = 0
@@ -55,6 +70,7 @@ class Task(GenericScreen):
 		self.laterLabelFrame["text"] = "Later"
 		
 
+		# Place the widgets for the UI
 		self.topBarFrame.pack(fill="both")
 		self.mainContectFrame.pack(expand=1, fill="both")
 
@@ -93,21 +109,21 @@ class Task(GenericScreen):
 				userTasks.append(task)
 		
 		# Create scrolling canvases and frames for each task type
-		urgentCanvas: tk.Canvas = tk.Canvas(self.urgentLabelFrame)
-		urgentScrollFrame = tk.Frame(urgentCanvas)
-		urgentScrollBar: tk.Scrollbar = tk.Scrollbar(self.urgentLabelFrame, orient="vertical", command=urgentCanvas.yview)
+		urgentCanvas: tk.Canvas = tk.Canvas(self.urgentLabelFrame, bg=pallet.bg)
+		urgentScrollFrame = tk.Frame(urgentCanvas, bg=pallet.bg)
+		urgentScrollBar: tk.Scrollbar = tk.Scrollbar(self.urgentLabelFrame, orient="vertical", command=urgentCanvas.yview, bg=pallet.bg)
 		
-		importantCanvas: tk.Canvas = tk.Canvas(self.importantLabelFrame)
-		importantScrollFrame = tk.Frame(importantCanvas)
-		importantScrollBar: tk.Scrollbar = tk.Scrollbar(self.importantLabelFrame, orient="vertical", command=importantCanvas.yview)
+		importantCanvas: tk.Canvas = tk.Canvas(self.importantLabelFrame, bg=pallet.bg)
+		importantScrollFrame = tk.Frame(importantCanvas, bg=pallet.bg)
+		importantScrollBar: tk.Scrollbar = tk.Scrollbar(self.importantLabelFrame, orient="vertical", command=importantCanvas.yview, bg=pallet.bg)
 		
-		soonCanvas: tk.Canvas = tk.Canvas(self.soonLabelFrame)
-		soonScrollFrame = tk.Frame(soonCanvas)
-		soonScrollBar: tk.Scrollbar = tk.Scrollbar(self.soonLabelFrame, orient="vertical", command=soonCanvas.yview)
+		soonCanvas: tk.Canvas = tk.Canvas(self.soonLabelFrame, bg=pallet.bg)
+		soonScrollFrame = tk.Frame(soonCanvas, bg=pallet.bg)
+		soonScrollBar: tk.Scrollbar = tk.Scrollbar(self.soonLabelFrame, orient="vertical", command=soonCanvas.yview, bg=pallet.bg)
 
-		laterCanvas: tk.Canvas = tk.Canvas(self.laterLabelFrame)
-		laterScrollFrame = tk.Frame(laterCanvas)
-		laterScrollBar: tk.Scrollbar = tk.Scrollbar(self.laterLabelFrame, orient="vertical", command=laterCanvas.yview)
+		laterCanvas: tk.Canvas = tk.Canvas(self.laterLabelFrame, bg=pallet.bg)
+		laterScrollFrame = tk.Frame(laterCanvas, bg=pallet.bg)
+		laterScrollBar: tk.Scrollbar = tk.Scrollbar(self.laterLabelFrame, orient="vertical", command=laterCanvas.yview, bg=pallet.bg)
 		
 		# Populate the diffrent tasks feilds
 		for task in userTasks:
@@ -122,11 +138,11 @@ class Task(GenericScreen):
 			else:
 				parent = laterScrollFrame
 			
-			taskFrame = tk.Frame(parent)
-			taskNameLabel = tk.Label(taskFrame, text=task.taskName, justify="left", font=("Helvetica", 12, "bold"))
-			taskDescriptionLabel = tk.Label(taskFrame, text=task.taskDescription, justify="left")
+			taskFrame = tk.Frame(parent, bg=pallet.bg)
+			taskNameLabel = tk.Label(taskFrame, text=task.taskName, justify="left", font=("Helvetica", 12, "bold"), bg=pallet.bg)
+			taskDescriptionLabel = tk.Label(taskFrame, text=task.taskDescription, justify="left", bg=pallet.bg)
 			boolVar = tkinter.BooleanVar()
-			taskTickBox = ttk.Checkbutton(taskFrame, text="completed", variable=boolVar, command=lambda boolVar=boolVar, taskId=task.taskID: self.__changeState(boolVar, taskId))
+			taskTickBox = ttk.Checkbutton(taskFrame, text="completed", variable=boolVar, command=lambda boolVar=boolVar, taskId=task.taskID: self.__changeState(boolVar, taskId), style="generic.TCheckbutton")
 			boolVar.set(False)
 			
 			taskFrame.pack()
@@ -163,14 +179,17 @@ class Task(GenericScreen):
 		laterCanvas.pack(fill="both", expand=0, side="left")
 		laterScrollBar.pack(side="right", fill="y")
 	
+	# Used to send the user home
 	def goHome(self):
 		self.application.switchForm(screens.Home)
 	
+	# Loggs the user out and takes them to the login screen
 	def logOut(self):
 		self.application.setLoggedInUser(None)
 		self.application.setLoggedInStaff(None)
 		self.application.switchForm(screens.Login)
 	
+	# Saves the tasks that have been complted
 	def save(self):
 		with open("data/tasks.pkl", "br") as taskFile:
 			tasks: list[TaskDataType] = pickle.load(taskFile)
@@ -185,6 +204,7 @@ class Task(GenericScreen):
 		with open("data/tasks.pkl", "bw") as taskFile:
 			pickle.dump(tasks, taskFile)
 	
+	# Called when a checkbox changes state to record it
 	def __changeState(self, boolVar: tk.BooleanVar, taskId: uuid.UUID):
 		if boolVar.get():
 			if taskId in self.tasksComplete:

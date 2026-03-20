@@ -16,44 +16,59 @@ import screens
 import popups
 
 
+import colourPallet as pallet
+
+
 class Booking(GenericScreen):
 	def __init__(self, application: Application) -> None:
 		super().__init__(application)
+		
+		# Creates the styling for the screen for ttk widgets
+		style = ttk.Style()
+		style.configure("generic.TButton", background=pallet.bg)
+		style.configure("nav.TButton", background=pallet.bg2)
+		style.configure("generic.TEntry", background=pallet.bg, highlightcolor=pallet.highlight)
+		style.configure("generic.TCombobox", background=pallet.bg, highlightcolor=pallet.highlight)
 
 		#Creating witgets and seting window title
 		self.root.title("Albert's Classic Car - Booking")
 
-		self.topBarFrame = tk.Frame(self.root)
-		self.mainContectFrame = tk.Frame(self.root)
+		# Creates the frames and widgets for the UI
+		self.topBarFrame = tk.Frame(self.root, bg=pallet.bg2)
+		self.mainContectFrame = tk.Frame(self.root, bg=pallet.bg)
 
 		self.companyLogo = tk.PhotoImage(file="assets/logo.png")
-		self.companyLogoHomeButton = tk.Button(self.topBarFrame)
-		self.titleLable = tk.Label(self.topBarFrame)
-		self.logOutButton = ttk.Button(self.topBarFrame)
+		self.searchIcon = tk.PhotoImage(file="assets/serach.png")
+		self.companyLogoHomeButton = tk.Button(self.topBarFrame, bg=pallet.bg2)
+		self.titleLable = tk.Label(self.topBarFrame, bg=pallet.bg2)
+		self.logOutButton = ttk.Button(self.topBarFrame, style="nav.TButton")
 		
-		self.clientLabel = tk.Label(self.mainContectFrame)
-		self.clientEntry = tk.Entry(self.mainContectFrame)
-		self.clientSearch = tk.Button(self.mainContectFrame)
+		self.bookingInfoContainer = tk.Frame(self.mainContectFrame, bg=pallet.bg)
+		self.clientIDContainer = tk.Frame(self.bookingInfoContainer, bg=pallet.bg)
+		self.vehicleIDContainer = tk.Frame(self.bookingInfoContainer, bg=pallet.bg)
+		self.pickUpDateLabelFrame = tk.LabelFrame(self.bookingInfoContainer, bg=pallet.bg)
+		self.dropOffDateLabelFrame = tk.LabelFrame(self.bookingInfoContainer, bg=pallet.bg)
 		
-		self.vehicleLabel = tk.Label(self.mainContectFrame)
-		self.vehicleEntry = tk.Entry(self.mainContectFrame)
-		self.vehicleSearch = tk.Button(self.mainContectFrame)
+		self.clientLabel = tk.Label(self.clientIDContainer, bg=pallet.bg)
+		self.clientEntry = ttk.Entry(self.clientIDContainer, style="generic.TEntry")
+		self.clientSearch = ttk.Button(self.clientIDContainer, style="generic.TButton")
+		
+		self.vehicleLabel = tk.Label(self.vehicleIDContainer, bg=pallet.bg)
+		self.vehicleEntry = ttk.Entry(self.vehicleIDContainer, style="generic.TEntry")
+		self.vehicleSearch = ttk.Button(self.vehicleIDContainer, style="generic.TButton")
 		
 		self.clientEntryStringVar: tk.StringVar = tk.StringVar()
 		self.vehicleEntryStringVar: tk.StringVar = tk.StringVar()
 		
-		self.pickUpDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
-		self.dropOffDateLabelFrame = tk.LabelFrame(self.mainContectFrame)
+		self.pickUpDay: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame, style="generic.TCombobox", width=5)
+		self.pickUpMonth: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame, style="generic.TCombobox", width=5)
+		self.pickUpYear: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame, style="generic.TCombobox", width=5)
 		
-		self.pickUpDay: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame)
-		self.pickUpMonth: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame)
-		self.pickUpYear: ttk.Combobox = ttk.Combobox(self.pickUpDateLabelFrame)
+		self.dropOffDay: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame, style="generic.TCombobox", width=5)
+		self.dropOffMonth: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame, style="generic.TCombobox", width=5)
+		self.dropOffYear: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame, style="generic.TCombobox", width=5)
 		
-		self.dropOffDay: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame)
-		self.dropOffMonth: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame)
-		self.dropOffYear: ttk.Combobox = ttk.Combobox(self.dropOffDateLabelFrame)
-		
-		self.bookButton = tk.Button(self.mainContectFrame)
+		self.bookButton = ttk.Button(self.bookingInfoContainer, style="generic.TButton")
 
 
 		#Configuring the widgets
@@ -72,10 +87,10 @@ class Booking(GenericScreen):
 		self.vehicleEntry["textvariable"] = self.vehicleEntryStringVar
 		
 		self.clientLabel["text"] = "Client"
-		self.clientSearch["text"] = "s"
+		self.clientSearch["image"] = self.searchIcon
 		self.clientSearch["command"] = self.__clientSearch
 		self.vehicleLabel["text"] = "Vehicle"
-		self.vehicleSearch["text"] = "s"
+		self.vehicleSearch["image"] = self.searchIcon
 		self.vehicleSearch["command"] = self.__vehicleSearch
 		
 		self.logOutButton["command"] = self.logout
@@ -114,7 +129,11 @@ class Booking(GenericScreen):
 
 		#Placing the widgest on the GUI
 		self.topBarFrame.pack(fill="x")
-		self.mainContectFrame.pack()
+		self.mainContectFrame.pack(fill="both", expand=1)
+		self.bookingInfoContainer.grid(row=0, column=0)
+		
+		self.clientIDContainer.grid(row=0, column=0, padx=5, pady=10)
+		self.vehicleIDContainer.grid(row=0, column=1, padx=5, pady=10)
 
 		self.companyLogoHomeButton.grid(row=0, column=0, sticky="w")
 		self.titleLable.grid(row=0, column=1)
@@ -124,28 +143,35 @@ class Booking(GenericScreen):
 		self.topBarFrame.columnconfigure(1, weight=1)
 		self.topBarFrame.columnconfigure(2, weight=1)
 		
-		self.clientLabel.pack()
-		self.clientEntry.pack()
-		self.clientSearch.pack()
+		self.clientLabel.grid(row=0, column=0, padx=1)
+		self.clientEntry.grid(row=0, column=1, padx=1)
+		self.clientSearch.grid(row=0, column=2, padx=1)
 		
-		self.vehicleLabel.pack()
-		self.vehicleEntry.pack()
-		self.vehicleSearch.pack()
+		self.vehicleLabel.grid(row=0, column=0, padx=1)
+		self.vehicleEntry.grid(row=0, column=1, padx=1)
+		self.vehicleSearch.grid(row=0, column=2, padx=1)
 
-		self.pickUpDay.pack()
-		self.pickUpMonth.pack()
-		self.pickUpYear.pack()
+		self.pickUpDay.grid(row=0, column=0, padx=1, pady=1)
+		self.pickUpMonth.grid(row=0, column=1, padx=1, pady=1)
+		self.pickUpYear.grid(row=0, column=2, padx=1, pady=1)
 		
-		self.dropOffDay.pack()
-		self.dropOffMonth.pack()
-		self.dropOffYear.pack()
+		self.dropOffDay.grid(row=0, column=0, padx=1, pady=1)
+		self.dropOffMonth.grid(row=0, column=1, padx=1, pady=1)
+		self.dropOffYear.grid(row=0, column=2, padx=1, pady=1)
 		
-		self.pickUpDateLabelFrame.pack()
-		self.dropOffDateLabelFrame.pack()
+		self.pickUpDateLabelFrame.grid(row=1, column=0)
+		self.dropOffDateLabelFrame.grid(row=1, column=1)
 
-		self.bookButton.pack()
-	
-		self.mainContectFrame.pack()
+		self.bookButton.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
+		
+		self.mainContectFrame.grid_rowconfigure(0, weight=1)
+		self.mainContectFrame.columnconfigure(0, weight=1)
+
+		self.bookingInfoContainer.grid_rowconfigure(0, weight=1)
+		self.bookingInfoContainer.grid_rowconfigure(1, weight=1)
+		self.bookingInfoContainer.grid_rowconfigure(2, weight=1)
+		self.bookingInfoContainer.grid_columnconfigure(0, weight=1)
+		self.bookingInfoContainer.grid_columnconfigure(1, weight=1)
 		
 	
 	#Takes the uses back to the home screen

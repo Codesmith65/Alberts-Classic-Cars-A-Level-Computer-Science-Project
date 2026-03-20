@@ -1,7 +1,6 @@
 import pickle
 import tkinter
 from tkinter import ttk, messagebox
-from turtle import back
 
 from dataTypes.client import Client
 
@@ -80,14 +79,16 @@ class ClientEdit:
         
         # Creats and diplays the save and cancel buttons and also adds the frames to the screen
         self.newButton: ttk.Button = ttk.Button(self.buttonsFrame, text="New", command=self.__new)
+        self.deleteButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Delete", command=self.__delete)
         self.saveButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Save", command=self.__save)
         self.cancelButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Cancel", command=self.topLevel.destroy)      
 
         self.newButton.grid(row=0, column=0, padx=2)
-        self.saveButton.grid(row=0, column=1, padx=2)
-        self.cancelButton.grid(row=0, column=2, padx=2)
+        self.deleteButton.grid(row=0, column=1, padx=2)
+        self.saveButton.grid(row=0, column=2, padx=2)
+        self.cancelButton.grid(row=0, column=3, padx=2)
         
-        self.contentFrame.pack()
+        self.contentFrame.pack(fill="x")
         self.buttonsFrame.pack(expand=True, anchor="e", padx=15, pady=10)
        
     # Used to creae a new version of the data type to be edited
@@ -126,3 +127,14 @@ class ClientEdit:
             pickle.dump(dataTypes, dataTypeFile)
             
         self.topLevel.destroy()
+    
+    def __delete(self):
+        # Opens the data type file to retive data types
+        with open(self.filePath, "rb") as dataTypeFile:
+            dataTypes: list = pickle.load(dataTypeFile)
+
+        dataTypes.pop(self.dataTypeIndex)
+
+        # Saves it back to file and closes the window
+        with open(self.filePath, "wb") as dataTypeFile:
+            pickle.dump(dataTypes, dataTypeFile)

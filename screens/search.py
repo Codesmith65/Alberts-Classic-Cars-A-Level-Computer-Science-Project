@@ -127,7 +127,7 @@ class Search(GenericScreen):
 		if searchCriteria == "":
 			messagebox.showinfo("Mising search criteria", "Please enter a seach criteria to narrow down search results.\nShowng all values")
 		
-		# Sets teh search max and a counter to keep track
+		# Sets the search max and a counter to keep track
 		searchCap = 800
 		resultNumber = 0
 		

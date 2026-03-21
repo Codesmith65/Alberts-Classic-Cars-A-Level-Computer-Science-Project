@@ -179,7 +179,7 @@ class Search(GenericScreen):
 		if (self.mode == 0 or self.mode == 5) and resultNumber < searchCap:
 			foundLocation: list[tuple[str, list]] = self.__linearSearchFile("data/locations.pkl", searchCriteria)
 			for location in foundLocation:
-				self.__createSearchResult("Location", location[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], location[1])))
+				self.__createSearchResult("Location", location[0], dict(zip(["id", "location name"], location[1])))
 				resultNumber += 1
 				if resultNumber > searchCap:
 					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
@@ -188,7 +188,7 @@ class Search(GenericScreen):
 		if (self.mode == 0 or self.mode == 6) and resultNumber < searchCap:
 			foundTasks: list[tuple[str, list]] = self.__linearSearchFile("data/tasks.pkl", searchCriteria)
 			for task in foundTasks:
-				self.__createSearchResult("Task", task[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], task[1])))
+				self.__createSearchResult("Task", task[0], dict(zip(["id", "task name", "task description", "completed", "parent task", "staff id", "importance"], task[1])))
 				resultNumber += 1
 				if resultNumber > searchCap:
 					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")

@@ -196,17 +196,27 @@ class Account(GenericScreen):
 
 		# Creates the new user
 		newUser = User(username, password)
+		newStaff = Staff(newUser.userID, "Enter first name", "Enter last name", "Enter address", "Enter phone number")
 
 		# Opens the user file and loads ths data
 		with open("data/users.pkl", "br") as userFile:
 			users: list[User] = pickle.load(userFile)
 		
-		# Adds the new user
+		# Opens the staff file and loads ths data
+		with open("data/staff.pkl", "br") as staffFile:
+			staff: list[Staff] = pickle.load(staffFile)
+		
+		# Adds the new user and staff
 		users.append(newUser)
+		staff.append(newStaff)
 
 		# Saves the new user
 		with open("data/users.pkl", "bw") as userFile:
 			pickle.dump(users, userFile)
+
+		# Saves the new user
+		with open("data/staff.pkl", "bw") as staffFile:
+			pickle.dump(staff, staffFile)
 		
 		# Displays an info box to say that the account has been created and its random password
 		messagebox.showinfo("New user password", f"The new user '{username}' has the password:\n\n{password}\n\nMake a note to log into the account")

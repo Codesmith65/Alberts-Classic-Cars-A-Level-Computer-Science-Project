@@ -18,7 +18,7 @@ class Task:
 			self.taskID = uuid4()
 
 	def getAtributes(self) -> list[UUID|str|bool]:
-		return [self.taskID, self.taskName, self.taskDescription, self.completed, self.parentTask, self.staffID]
+		return [self.taskID, self.taskName, self.taskDescription, self.completed, self.parentTask, self.staffID, self.importance]
 	
 	def completeTask(self) -> None:
 		self.completed = True

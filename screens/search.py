@@ -242,9 +242,9 @@ class Search(GenericScreen):
 	# Used to take the user to the correct edit popup
 	def __openEdit(self, dataType: str, data: dict):
 		if dataType.lower() == "user":
-			pass
+			messagebox.showwarning("Data type edit", "This data type cannot be edited here, admin privallages required")
 		elif dataType.lower() == "staff":
-			pass
+			messagebox.showwarning("Data type edit", "This data type cannot be edited here, admin privallages required")
 		elif dataType.lower() == "client":
 			popups.ClientEdit(data)
 		elif dataType.lower() == "booking":
@@ -252,6 +252,7 @@ class Search(GenericScreen):
 		elif dataType.lower() == "vehicle":
 			popups.VehicleEdit(data)
 		elif dataType.lower() == "location":
-			pass
+			messagebox.showwarning("Data type edit", "This data type cannot be edited")
 		elif dataType.lower() == "task":
 			popups.TaskEdit(data)
+		

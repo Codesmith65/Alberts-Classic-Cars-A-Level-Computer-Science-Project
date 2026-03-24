@@ -246,5 +246,5 @@ class SearchPopup:
 		elif dataType.lower() == "location":
 			pass
 		elif dataType.lower() == "task":
-			pass
+			popups.TaskEdit(data)
 		

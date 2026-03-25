@@ -109,6 +109,14 @@ class Invoice(GenericScreen):
 		bookingDeposit = bookingCost * 0.1 #Deposite is 10% of booking cost
 		bookingBalence = bookingCost - bookingDeposit
 
+		# Calculates the due dates for the payments
+		now = datetime.today().timestamp()
+		if (self.booking.pickupDate-now) < 604800:
+			depositeDueDate = now
+			balanceDueDate = now
+		else:
+			depositeDueDate = now + 172800
+			balanceDueDate = self.booking.pickupDate-432000
 
 		#Configuring widgets to have correct infomation and functionality
 		self.companyLogoHomeButton["image"] = self.companyLogo
@@ -143,9 +151,9 @@ class Invoice(GenericScreen):
 		self.costPerDayLabel["text"] = f"Cost per day: £{self.vehicle.costPerDay:.2f}"
 		self.totalCostLabel["text"] = f"Total cost: £{bookingCost:.2f}"
 		self.depositeLabel["text"] = f"Deposite: £{bookingDeposit:.2f}"
-		self.depositeDueLabel["text"] = "Due:"
+		self.depositeDueLabel["text"] = f"Due: {datetime.fromtimestamp(depositeDueDate):%d/%m/%Y}"
 		self.balanceLabel["text"] = f"Balance: £{bookingBalence:.2f}"
-		self.balanceDueLabel["text"] = "Due:"
+		self.balanceDueLabel["text"] = f"Due: {datetime.fromtimestamp(balanceDueDate):%d/%m/%Y}"
 
 
 		#Position widgets on gui

@@ -3,5 +3,5 @@ Username: admin
 Password: admin
 
 Test user creds  
-Username: TestUser18
-Password: test
+Username: TestUser18  
+Password: test  

@@ -24,7 +24,7 @@ class Search(GenericScreen):
 		# Checks if a mode is provided from cross screen data
 		self.mode: int = mode
 		if "mode" in application.crossScreenDataStore and type(application.crossScreenDataStore["mode"]) is int:
-			self.mdoe = application.crossScreenDataStore["mode"]
+			self.mode = application.crossScreenDataStore["mode"]
 
 		# Sets the title
 		self.root.title("Albert's Classic Car - Search")
@@ -194,6 +194,8 @@ class Search(GenericScreen):
 					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
 					break
 		
+		self.serachResultsContainer.update()
+
 		# configures and places the new canvas and scroll bar in UI
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))

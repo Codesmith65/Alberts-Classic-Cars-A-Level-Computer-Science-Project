@@ -45,7 +45,7 @@ class TaskEdit:
         self.completedBoolVar: tkinter.BooleanVar = tkinter.BooleanVar()
         self.parentTaskStrVar: tkinter.StringVar = tkinter.StringVar()
         self.staffIDStrVar: tkinter.StringVar = tkinter.StringVar()
-        self.importanceStrVar: tkinter.StringVar = tkinter.StringVar()
+        self.importanceStrVar: tkinter.IntVar = tkinter.IntVar()
 
         self.taskNameEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.taskNameStrVar)
         self.taskDescriptionEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.taskDescriptionStrVar)
@@ -106,8 +106,8 @@ class TaskEdit:
         self.currentDataType.taskDescription = self.taskDescriptionStrVar.get()
         self.currentDataType.completed = self.completedBoolVar.get()
         self.currentDataType.parentTask = self.parentTaskStrVar.get()
-        self.currentDataType.staffID = self.staffIDStrVar.get()
-        self.currentDataType.importance = self.importanceStrVar.get()
+        self.currentDataType.staffID = uuid.UUID(self.staffIDStrVar.get())
+        self.currentDataType.importance = int(self.importanceStrVar.get())
         ## -- Custome per data type between -- ##
 
         # Opens the data type file to retive data types

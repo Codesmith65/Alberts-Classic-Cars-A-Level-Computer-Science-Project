@@ -174,6 +174,8 @@ class SearchPopup:
 					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")
 					break
 		
+		self.serachResultsContainer.update()
+		
 		# Configures and places the new canvas and scroll bar in UI
 		self.canvas.config(yscrollcommand=self.scrollBar.set)
 		self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))

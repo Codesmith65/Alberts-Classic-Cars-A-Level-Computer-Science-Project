@@ -179,6 +179,11 @@ class Task(GenericScreen):
 		laterCanvas.create_window((0,0), window=laterScrollFrame, anchor="nw")
 		laterCanvas.pack(fill="both", expand=0, side="left")
 		laterScrollBar.pack(side="right", fill="y")
+
+		self.urgentLabelFrame.update()
+		self.importantLabelFrame.update()
+		self.soonLabelFrame.update()
+		self.laterLabelFrame.update()
 	
 	# Used to send the user home
 	def goHome(self):

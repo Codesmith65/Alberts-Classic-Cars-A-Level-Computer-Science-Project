@@ -127,7 +127,6 @@ class Task(GenericScreen):
 		
 		# Populate the diffrent tasks feilds
 		for task in userTasks:
-			print(task.importance, type(task.importance))
 			if task.importance == 0:
 				parent = urgentScrollFrame
 			elif task.importance == 1:

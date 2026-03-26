@@ -127,7 +127,6 @@ class Task(GenericScreen):
 		
 		# Populate the diffrent tasks feilds
 		for task in userTasks:
-			print(task.importance, type(task.importance))
 			if task.importance == 0:
 				parent = urgentScrollFrame
 			elif task.importance == 1:
@@ -136,8 +135,8 @@ class Task(GenericScreen):
 				parent = soonScrollFrame
 			elif task.importance == 3:
 				parent = laterScrollFrame
-			#else:
-				#parent = laterScrollFrame
+			else:
+				parent = laterScrollFrame
 			
 			taskFrame = tk.Frame(parent, bg=pallet.bg)
 			taskNameLabel = tk.Label(taskFrame, text=task.taskName, justify="left", font=("Helvetica", 12, "bold"), bg=pallet.bg)

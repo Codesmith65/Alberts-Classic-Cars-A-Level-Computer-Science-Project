@@ -82,10 +82,12 @@ class Task(GenericScreen):
 		self.topBarFrame.columnconfigure(1, weight=1)
 		self.topBarFrame.columnconfigure(2, weight=1)
 		
-		self.urgentLabelFrame.grid(row=0, column=0)
-		self.importantLabelFrame.grid(row=0, column=1)
-		self.soonLabelFrame.grid(row=0, column=2)
-		self.laterLabelFrame.grid(row=0, column=3)
+		self.mainContectFrame.rowconfigure(0, weight=1)
+		
+		self.urgentLabelFrame.grid(row=0, column=0, sticky="nesw")
+		self.importantLabelFrame.grid(row=0, column=1, sticky="nesw")
+		self.soonLabelFrame.grid(row=0, column=2, sticky="nesw")
+		self.laterLabelFrame.grid(row=0, column=3, sticky="nesw")
 		self.saveButton.grid(row=1, column=3, sticky="se")
 		
 		self.mainContectFrame.columnconfigure(0, weight=1)

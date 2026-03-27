@@ -1,3 +1,5 @@
+![Logo](/assets/logo-large.png)
+
 Admin acount creds  
 Username: admin  
 Password: admin

@@ -170,7 +170,7 @@ class Search(GenericScreen):
 		if (self.mode == 0 or self.mode == 4) and resultNumber < searchCap:
 			foundVehicles: list[tuple[str, list]] = self.__linearSearchFile("data/vehicles.pkl", searchCriteria)
 			for vehicle in foundVehicles:
-				self.__createSearchResult("Vehicle", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin"], vehicle[1])))
+				self.__createSearchResult("Vehicle", vehicle[0], dict(zip(["id", "make", "model", "colour", "registration", "vin", "cost per day"], vehicle[1])))
 				resultNumber += 1
 				if resultNumber > searchCap:
 					messagebox.showerror("Search cap reached", "Search cap has been reached, use the search box to narrow down your results\nThe last results have been exculded")

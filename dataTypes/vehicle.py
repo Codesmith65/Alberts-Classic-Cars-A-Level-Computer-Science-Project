@@ -18,4 +18,4 @@ class Vehicle:
 			self.vehicleID = uuid4()
 
 	def getAtributes(self) -> list[UUID|str]:
-		return [self.vehicleID, self.make, self.model, self.colour, self.registration, self.vin]
+		return [self.vehicleID, self.make, self.model, self.colour, self.registration, self.vin, self.costPerDay]

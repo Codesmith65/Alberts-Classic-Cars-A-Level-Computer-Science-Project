@@ -44,47 +44,57 @@ class VehicleEdit:
         self.colourStrVar: tkinter.StringVar = tkinter.StringVar()
         self.registrationStrVar: tkinter.StringVar = tkinter.StringVar()
         self.vinNumberStrVar: tkinter.StringVar = tkinter.StringVar()
+        self.costPerDayIntVar: tkinter.IntVar = tkinter.IntVar()
 
         self.makeEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.makeStrVar)
         self.modelEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.modelStrVar)
         self.colourEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.colourStrVar)
         self.registrationEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.registrationStrVar)
         self.vinNumberEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.vinNumberStrVar)
+        self.costPerDayEntry: ttk.Entry = ttk.Entry(self.contentFrame, background="white", textvariable=self.costPerDayIntVar)
         
         self.makeLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Make:")
         self.modelLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Model:")
         self.colourLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Colour:")
         self.registrationLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Registration:")
         self.vinLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Vin:")
+        self.costPerDayLabel: ttk.Label = ttk.Label(self.contentFrame, background="white", text="Cost per day:")
         
         self.makeLabel.grid(row=0, column=0, padx=3, pady=3, sticky="e")
         self.modelLabel.grid(row=1, column=0, padx=3, pady=3, sticky="e")
         self.colourLabel.grid(row=2, column=0, padx=3, pady=3, sticky="e")
         self.registrationLabel.grid(row=3, column=0, padx=3, pady=3, sticky="e")
         self.vinLabel.grid(row=4, column=0, padx=3, pady=3, sticky="e")
+        self.costPerDayLabel.grid(row=5, column=0, padx=3, pady=3, sticky="e")
         
         self.makeEntry.grid(row=0, column=1, padx=3, pady=3)
         self.modelEntry.grid(row=1, column=1, padx=3, pady=3)
         self.colourEntry.grid(row=2, column=1, padx=3, pady=3)
         self.registrationEntry.grid(row=3, column=1, padx=3, pady=3)
         self.vinNumberEntry.grid(row=4, column=1, padx=3, pady=3)
+        self.costPerDayEntry.grid(row=5, column=1, padx=3, pady=3)
         
         self.makeStrVar.set(data["make"])
         self.modelStrVar.set(data["model"])
         self.colourStrVar.set(data["colour"])
         self.registrationStrVar.set(data["registration"])
         self.vinNumberStrVar.set(data["vin"])
+        self.costPerDayIntVar.set(data["cost per day"])
 
         ## -- Custome per data type between -- ##
         
         # Creats and diplays the save and cancel buttons and also adds the frames to the screen
+        self.newButton: ttk.Button = ttk.Button(self.buttonsFrame, text="New", command=self.__new)
+        self.deleteButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Delete", command=self.__delete)
         self.saveButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Save", command=self.__save)
-        self.cancelButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Cancel", command=self.topLevel.destroy)
+        self.cancelButton: ttk.Button = ttk.Button(self.buttonsFrame, text="Cancel", command=self.topLevel.destroy)      
+
+        self.newButton.grid(row=0, column=0, padx=2)
+        self.deleteButton.grid(row=0, column=1, padx=2)
+        self.saveButton.grid(row=0, column=2, padx=2)
+        self.cancelButton.grid(row=0, column=3, padx=2)
         
-        self.saveButton.grid(row=0, column=0, padx=2)
-        self.cancelButton.grid(row=0, column=1, padx=2)
-        
-        self.contentFrame.pack()
+        self.contentFrame.pack(fill="x")
         self.buttonsFrame.pack(expand=True, anchor="e", padx=15, pady=10)
     
     # Used to save the data that was edited
@@ -96,6 +106,7 @@ class VehicleEdit:
         self.currentDataType.colour = self.colourStrVar.get()
         self.currentDataType.registration = self.registrationStrVar.get()
         self.currentDataType.vin = self.vinNumberStrVar.get()
+        self.currentDataType.costPerDay = int(self.costPerDayIntVar.get())
         ## -- Custome per data type between -- ##
 
         # Opens the data type file to retive data types
@@ -110,3 +121,27 @@ class VehicleEdit:
             pickle.dump(dataTypes, dataTypeFile)
             
         self.topLevel.destroy()
+     
+    def __new(self):
+        with open("data/vehicles.pkl", "br") as dataFile:
+            data: list[Vehicle] = pickle.load(dataFile)
+            
+        newClient = Vehicle("", "", "", "", "")
+        data.append(newClient)
+        
+        with open("data/vehicles.pkl", "bw") as dataFile:
+            pickle.dump(data, dataFile)
+            
+        VehicleEdit(dict(zip(["id", "make", "model", "colour", "registration", "vin", "cost per day"], newClient.getAtributes())))
+    
+    def __delete(self):
+        # Opens the data type file to retive data types
+        with open("data/vehicles.pkl", "rb") as dataTypeFile:
+            dataTypes: list = pickle.load(dataTypeFile)
+
+        dataTypes.pop(self.dataTypeIndex)
+        self.topLevel.destroy()
+
+        # Saves it back to file and closes the window
+        with open("data/vehicles.pkl", "wb") as dataTypeFile:
+            pickle.dump(dataTypes, dataTypeFile)
